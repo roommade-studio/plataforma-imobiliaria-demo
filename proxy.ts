@@ -4,7 +4,7 @@ const PUBLIC_PATHS = ['/login', '/api/auth']
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
-  const sessionCookie = request.cookies.get('__Secure-neonauth.session_token')
+  const sessionCookie = request.cookies.get('__Secure-better-auth.session_token')
     ?? request.cookies.get('better-auth.session_token')
 
   const isPublic = PUBLIC_PATHS.some((p) => pathname.startsWith(p))
