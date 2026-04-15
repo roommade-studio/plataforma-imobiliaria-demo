@@ -18,25 +18,10 @@
 }
 
 .logo {
-  width: var(--size-3);
-  height: var(--size-3);
-  background-color: var(--brand-600);
-  border-radius: var(--radius-lg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto var(--size-1);
+  display: inline-flex;
+  margin-bottom: var(--size-1);
 }
 
-.title {
-  font-family:    var(--font-family-heading);
-  font-size:      var(--font-size-h4);
-  font-weight:    var(--font-weight-h4);
-  line-height:    var(--font-height-h4);
-  letter-spacing: var(--font-spacing-h4);
-  color:          var(--heading-main);
-  margin-bottom: var(--size-0-25);
-}
 
 .subtitle {
   font-family:    var(--font-family-sans);

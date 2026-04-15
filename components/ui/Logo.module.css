@@ -29,3 +29,12 @@
   text-transform: uppercase;
   white-space:    nowrap;
 }
+
+/* Dark variant — for light backgrounds */
+.logo--dark .logo__label {
+  color: var(--paragraph);
+}
+
+.logo--dark .logo__name {
+  color: var(--heading-main);
+}

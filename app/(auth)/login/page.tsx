@@ -6,6 +6,7 @@ import { signIn } from '@/lib/auth/client'
 import Card, { CardBody } from '@/components/ui/Card'
 import Input from '@/components/ui/Input'
 import Button from '@/components/ui/Button'
+import Logo from '@/components/ui/Logo'
 import styles from './page.module.css'
 
 export default function LoginPage() {
@@ -39,12 +40,7 @@ export default function LoginPage() {
       <div className={styles.card}>
         <Card>
           <div className={styles.header}>
-            <div className={styles.logo}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-              </svg>
-            </div>
-            <h1 className={styles.title}>Plataforma Imobiliária</h1>
+            <Logo variant="dark" className={styles.logo} />
             <p className={styles.subtitle}>Entre com suas credenciais para acessar</p>
           </div>
 
