@@ -1,0 +1,31 @@
+.logo {
+  display:        flex;
+  flex-direction: column;
+  align-items:    stretch;
+}
+
+/* "SISTEMA" — small label spanning the full width of PRIORIDADE */
+.logo__label {
+  font-family:     var(--font-family-sans);
+  font-size:       var(--font-size-text-xs);
+  font-weight:     var(--weight-medium);
+  line-height:     var(--line-height-1);
+  letter-spacing:  var(--letter-spacing-normal);
+  color:           rgba(255, 255, 255, 0.5);
+  text-transform:  uppercase;
+  display:         block;
+  text-align:      justify;
+  text-align-last: justify;
+}
+
+/* "PRIORIDADE" — large, bold, defines the container width */
+.logo__name {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-h4);
+  font-weight:    var(--weight-bold);
+  line-height:    var(--line-height-1);
+  letter-spacing: var(--letter-spacing-tight);
+  color:          #ffffff;
+  text-transform: uppercase;
+  white-space:    nowrap;
+}

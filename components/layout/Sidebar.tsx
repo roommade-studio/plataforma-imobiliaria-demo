@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn, getInitials } from '@/lib/utils'
 import { useDashboard } from '@/lib/context/DashboardContext'
+import Logo from '@/components/ui/Logo'
 import styles from './Sidebar.module.css'
 
 /* =====================================================
@@ -192,12 +193,7 @@ export default function Sidebar({ userName, userEmail: _userEmail, role, onLogou
     >
       {/* Logo */}
       <div className={styles.sidebar__logo}>
-        <div className={styles['sidebar__logo-icon']}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-          </svg>
-        </div>
-        <span className={styles['sidebar__logo-text']}>Plataforma Imob</span>
+        <Logo className={styles['sidebar__logo-text']} />
       </div>
 
       {/* Navigation */}

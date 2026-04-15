@@ -34,17 +34,6 @@
   overflow: hidden;
 }
 
-.sidebar__logo-icon {
-  width: var(--size-2);
-  height: var(--size-2);
-  background-color: var(--brand-600);
-  border-radius: var(--radius-md);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
 .sidebar__logo-text {
   font-family:    var(--font-family-sans);
   font-size:      var(--font-size-text-sm);
