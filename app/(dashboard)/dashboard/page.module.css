@@ -1,0 +1,355 @@
+/* ── Page shell ──────────────────────────────────────────── */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-1-5);
+}
+
+/* ── Header / greeting ──────────────────────────────────── */
+
+.page__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--size-1);
+}
+
+.page__greeting {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-sm);
+  font-weight:    var(--weight-regular);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--paragraph);
+  margin: 0;
+}
+
+.page__title {
+  font-family:    var(--font-family-heading);
+  font-size:      var(--font-size-h3);
+  font-weight:    var(--font-weight-h3);
+  line-height:    var(--font-height-h3);
+  letter-spacing: var(--font-spacing-h3);
+  color:          var(--heading-main);
+  margin: 0;
+}
+
+/* ── Health score card ──────────────────────────────────── */
+
+.health__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--size-2);
+}
+
+.health__ring {
+  flex-shrink: 0;
+}
+
+.health__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-0-5);
+  flex: 1;
+}
+
+.health__eyebrow {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-xs);
+  font-weight:    var(--weight-semibold);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-wide);
+  color:          var(--heading-accent);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.health__title {
+  font-family:    var(--font-family-heading);
+  font-size:      var(--font-size-h5);
+  font-weight:    var(--font-weight-h5);
+  line-height:    var(--font-height-h5);
+  letter-spacing: var(--font-spacing-h5);
+  color:          var(--heading-main);
+  margin: 0;
+}
+
+.health__desc {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-sm);
+  font-weight:    var(--weight-regular);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--paragraph);
+  margin: 0;
+}
+
+.health__metrics {
+  display: flex;
+  gap: var(--size-2);
+  flex-wrap: wrap;
+  margin-top: var(--size-0-5);
+}
+
+.health__metric {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-0-25);
+}
+
+.health__metric-label {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-xs);
+  font-weight:    var(--weight-regular);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--paragraph);
+}
+
+.health__metric-value {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-md);
+  font-weight:    var(--weight-semibold);
+  line-height:    var(--line-height-1-3);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--heading-main);
+  display: flex;
+  align-items: baseline;
+  gap: var(--size-0-5);
+}
+
+.health__metric-sub {
+  font-size:   var(--font-size-text-xs);
+  font-weight: var(--weight-regular);
+  color:       var(--paragraph);
+}
+
+/* ── KPI grid ───────────────────────────────────────────── */
+
+.page__kpis {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--size-1);
+}
+
+@media (max-width: 1200px) {
+  .page__kpis {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .page__kpis {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 540px) {
+  .page__kpis {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── KPI card ───────────────────────────────────────────── */
+
+.kpi__card {
+  background:    var(--card-background);
+  border:        var(--border-regular) solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding:       var(--size-1) var(--size-1-5);
+}
+
+.kpi__body {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  gap:             var(--size-1);
+}
+
+.kpi__info {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--size-0-25);
+  min-width: 0;
+}
+
+.kpi__label {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-xs);
+  font-weight:    var(--weight-regular);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--paragraph);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.kpi__value {
+  font-family:    var(--font-family-heading);
+  font-size:      var(--font-size-h4);
+  font-weight:    var(--font-weight-h4);
+  line-height:    var(--font-height-h4);
+  letter-spacing: var(--font-spacing-h4);
+  color:          var(--heading-main);
+  margin: 0;
+}
+
+.kpi__meta {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-xs);
+  font-weight:    var(--weight-regular);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--paragraph);
+  margin: 0;
+}
+
+.kpi__meta--trend {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-xs);
+  font-weight:    var(--weight-semibold);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--heading-accent);
+  margin: 0;
+}
+
+.kpi__ring {
+  flex-shrink: 0;
+}
+
+/* ── Alertas ────────────────────────────────────────────── */
+
+.alertas__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-0-75);
+}
+
+.alertas__item {
+  display:     flex;
+  align-items: center;
+  gap:         var(--size-0-75);
+}
+
+.alertas__icon {
+  flex-shrink: 0;
+  color:       var(--heading-accent);
+  display:     flex;
+}
+
+.alertas__text {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-sm);
+  font-weight:    var(--weight-regular);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--paragraph);
+}
+
+/* ── Tab panels ─────────────────────────────────────────── */
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-1);
+  margin-top: var(--size-1);
+}
+
+.panel__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--size-1);
+}
+
+@media (max-width: 768px) {
+  .panel__row {
+    grid-template-columns: 1fr;
+  }
+  .health__inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ── Card header labels ─────────────────────────────────── */
+
+.card__title {
+  font-family:    var(--font-family-heading);
+  font-size:      var(--font-size-h6);
+  font-weight:    var(--font-weight-h6);
+  line-height:    var(--font-height-h6);
+  letter-spacing: var(--font-spacing-h6);
+  color:          var(--heading-main);
+}
+
+.card__subtitle {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-xs);
+  font-weight:    var(--weight-regular);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--paragraph);
+  margin-left: auto;
+}
+
+/* ── Pie chart body ─────────────────────────────────────── */
+
+.pie-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Metas tab ──────────────────────────────────────────── */
+
+.metas {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--size-1);
+  margin-top: var(--size-1);
+}
+
+@media (max-width: 640px) {
+  .metas {
+    grid-template-columns: 1fr;
+  }
+}
+
+.meta__card {
+  display: flex;
+  align-items: center;
+  gap: var(--size-1-5);
+}
+
+.meta__info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-0-25);
+}
+
+.meta__label {
+  font-family:    var(--font-family-heading);
+  font-size:      var(--font-size-text-md);
+  font-weight:    var(--weight-semibold);
+  line-height:    var(--line-height-1-3);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--heading-main);
+  margin: 0;
+}
+
+.meta__progress {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-sm);
+  font-weight:    var(--weight-regular);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--paragraph);
+  margin: 0;
+}

@@ -1,0 +1,194 @@
+/* =====================================================
+   KANBAN BOARD
+   ===================================================== */
+
+.board {
+  display: flex;
+  gap: var(--size-1);
+  overflow-x: auto;
+  padding-bottom: var(--size-1);
+  align-items: flex-start;
+  min-height: 0;
+}
+
+/* ----- Column ----- */
+
+.column {
+  flex-shrink: 0;
+  width: 17rem;
+  background-color: var(--background-two);
+  border: var(--border-regular) solid var(--card-border);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-0-75);
+  transition: background-color 0.12s ease;
+}
+
+.column--over {
+  background-color: var(--card-background-hover);
+}
+
+.column__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--size-0-75) var(--size-1);
+  border-bottom: var(--border-regular) solid var(--card-border);
+}
+
+.column__title {
+  display: flex;
+  align-items: center;
+  gap: var(--size-0-5);
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-sm);
+  font-weight:    var(--weight-semibold);
+  line-height:    var(--line-height-1-3);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--heading-main);
+}
+
+.column__dot {
+  width:  var(--size-0-5);
+  height: var(--size-0-5);
+  border-radius: var(--radius-full);
+  background-color: var(--col-accent, var(--btn-primary-background));
+  flex-shrink: 0;
+}
+
+.column__count {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-xs, 0.625rem);
+  font-weight:    var(--weight-bold);
+  line-height:    var(--line-height-1);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--paragraph);
+  background-color: var(--card-border);
+  border-radius:  var(--radius-full);
+  min-width: var(--size-1-5);
+  height:    var(--size-1-5);
+  display:   flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: var(--size-0-25);
+}
+
+.column__body {
+  padding: var(--size-0-5) var(--size-0-75) var(--size-0-75);
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-0-5);
+  min-height: var(--size-4);
+}
+
+/* ----- Card ----- */
+
+.card {
+  background-color: var(--card-background);
+  border: var(--border-regular) solid var(--card-border);
+  border-radius: var(--radius-md);
+  padding: var(--size-0-75) var(--size-1);
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-0-25);
+  cursor: grab;
+  transition: box-shadow 0.12s ease, border-color 0.12s ease;
+}
+
+.card:hover {
+  border-color: var(--card-border-hover);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.card--clickable {
+  cursor: pointer;
+}
+
+.card--dragging {
+  cursor: grabbing;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  border-color: var(--btn-primary-border);
+}
+
+.card__badge {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-xs, 0.625rem);
+  font-weight:    var(--weight-semibold);
+  line-height:    var(--line-height-1);
+  letter-spacing: var(--letter-spacing-normal);
+  text-transform: uppercase;
+}
+
+.card__title {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-sm);
+  font-weight:    var(--weight-semibold);
+  line-height:    var(--line-height-1-3);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--heading-main);
+  margin: 0;
+}
+
+.card__subtitle {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-sm);
+  font-weight:    var(--weight-regular);
+  line-height:    var(--line-height-1-3);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--paragraph);
+  margin: 0;
+}
+
+/* ----- Meta ----- */
+
+.card__meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-0-125, 0.125rem);
+  margin-top: var(--size-0-25);
+}
+
+.card__meta-item {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--size-0-5);
+}
+
+.card__meta-item dt,
+.card__meta-item dd {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-xs, 0.625rem);
+  font-weight:    var(--weight-regular);
+  line-height:    var(--line-height-1-3);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--paragraph);
+  margin: 0;
+}
+
+.card__meta-item dd {
+  font-weight: var(--weight-medium);
+  color: var(--heading-main);
+  text-align: right;
+}
+
+/* ----- Tags ----- */
+
+.card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--size-0-25);
+  margin-top: var(--size-0-25);
+}
+
+.card__tag {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-xs, 0.625rem);
+  font-weight:    var(--weight-medium);
+  line-height:    var(--line-height-1);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--paragraph);
+  background-color: var(--card-border);
+  border-radius:  var(--radius-sm);
+  padding: var(--size-0-125, 0.125rem) var(--size-0-25);
+}

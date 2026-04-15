@@ -1,0 +1,175 @@
+/* =====================================================
+   TOPBAR
+   ===================================================== */
+
+.topbar {
+  position: fixed;
+  top: 0;
+  left: var(--sidebar-width);
+  right: 0;
+  height: var(--topbar-height);
+  background-color: var(--topbar-background);
+  border-bottom: var(--border-regular) solid var(--topbar-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: var(--size-1-5);
+  gap: var(--size-1);
+  z-index: 30;
+  transition: left 0.2s ease;
+}
+
+.topbar--collapsed {
+  left: var(--sidebar-width-collapsed);
+}
+
+/* ----- Left side ----- */
+
+.topbar__left {
+  display: flex;
+  align-items: center;
+  gap: var(--size-0-75);
+  min-width: 0;
+}
+
+.topbar__toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-2);
+  height: var(--size-2);
+  border-radius: var(--radius-md);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--paragraph);
+  flex-shrink: 0;
+  transition: background-color 0.12s ease, color 0.12s ease;
+}
+
+.topbar__toggle:hover {
+  background-color: var(--card-background-hover);
+  color: var(--heading-main);
+}
+
+.topbar__title {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-sm);
+  font-weight:    var(--weight-semibold);
+  line-height:    var(--line-height-1-3);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--heading-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ----- Right side ----- */
+
+.topbar__right {
+  display: flex;
+  align-items: center;
+  gap: var(--size-0-75);
+  flex-shrink: 0;
+}
+
+/* ----- Month / Year selectors ----- */
+
+.topbar__selector {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.topbar__selector select {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-sm);
+  font-weight:    var(--weight-medium);
+  line-height:    var(--line-height-1-3);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--heading-main);
+  background-color: var(--form-background);
+  border: var(--border-regular) solid var(--form-border);
+  border-radius: var(--radius-md);
+  padding: var(--size-0-25) var(--size-0-75);
+  height: var(--size-2);
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: var(--size-1-5);
+  transition: border-color 0.12s ease, background-color 0.12s ease;
+}
+
+.topbar__selector select:hover {
+  border-color: var(--form-border-hover);
+  background-color: var(--form-background-hover);
+}
+
+.topbar__selector select:focus {
+  outline: none;
+  border-color: var(--form-border-pressed);
+  background-color: var(--form-background-pressed);
+}
+
+.topbar__selector-chevron {
+  position: absolute;
+  right: var(--size-0-5);
+  pointer-events: none;
+  color: var(--paragraph);
+  width: var(--size-0-75);
+  height: var(--size-0-75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ----- Bell / notifications ----- */
+
+.topbar__bell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-2);
+  height: var(--size-2);
+  border-radius: var(--radius-md);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--paragraph);
+  flex-shrink: 0;
+  transition: background-color 0.12s ease, color 0.12s ease;
+}
+
+.topbar__bell:hover {
+  background-color: var(--card-background-hover);
+  color: var(--heading-main);
+}
+
+.topbar__badge {
+  position: absolute;
+  top: var(--size-0-25);
+  right: var(--size-0-25);
+  min-width: var(--size-1);
+  height: var(--size-1);
+  background-color: var(--danger-500);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-xs);
+  font-weight:    var(--weight-bold);
+  line-height:    var(--line-height-1);
+  letter-spacing: var(--letter-spacing-normal);
+  color: #ffffff;
+  padding-inline: var(--size-0-25);
+}
+
+/* ----- Extra actions slot ----- */
+
+.topbar__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--size-0-75);
+}

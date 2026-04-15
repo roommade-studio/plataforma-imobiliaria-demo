@@ -1,0 +1,371 @@
+/* =========================================================
+   DESIGN SYSTEM — PLATAFORMA IMOBILIÁRIA
+   Todas as referências visuais vivem aqui.
+   Componentes nunca usam valores hardcoded.
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   LAYER 1 — PRIMITIVOS (apenas usados dentro deste arquivo)
+   --------------------------------------------------------- */
+:root {
+  /* --- Paleta de cores: brand (azul-ardósia neutro — temporário) --- */
+  --brand-50:  #f0f4ff;
+  --brand-100: #e0eaff;
+  --brand-200: #c2d4fe;
+  --brand-300: #93b4fd;
+  --brand-400: #6090fa;
+  --brand-500: #3b6ef5;
+  --brand-600: #2452e0;
+  --brand-700: #1c3fc7;
+  --brand-800: #1c35a0;
+  --brand-900: #1c307f;
+
+  /* --- Paleta neutra --- */
+  --neutral-50:  #f8fafc;
+  --neutral-100: #f1f5f9;
+  --neutral-200: #e2e8f0;
+  --neutral-300: #cbd5e1;
+  --neutral-400: #94a3b8;
+  --neutral-500: #64748b;
+  --neutral-600: #475569;
+  --neutral-700: #334155;
+  --neutral-800: #1e293b;
+  --neutral-900: #0f172a;
+
+  /* --- Paleta semântica de status --- */
+  --success-50:  #f0fdf4;
+  --success-500: #22c55e;
+  --success-700: #15803d;
+
+  --warning-50:  #fffbeb;
+  --warning-500: #f59e0b;
+  --warning-700: #b45309;
+
+  --danger-50:   #fef2f2;
+  --danger-500:  #ef4444;
+  --danger-700:  #b91c1c;
+
+  --info-50:     #eff6ff;
+  --info-500:    #3b82f6;
+  --info-700:    #1d4ed8;
+
+  /* --- Escala de tamanhos (0rem → 16rem) --- */
+  --size-0:    0rem;
+  --size-0-25: 0.25rem;
+  --size-0-5:  0.5rem;
+  --size-0-75: 0.75rem;
+  --size-1:    1rem;
+  --size-1-25: 1.25rem;
+  --size-1-5:  1.5rem;
+  --size-2:    2rem;
+  --size-2-5:  2.5rem;
+  --size-3:    3rem;
+  --size-4:    4rem;
+  --size-5:    5rem;
+  --size-6:    6rem;
+  --size-8:    8rem;
+  --size-10:   10rem;
+  --size-12:   12rem;
+  --size-16:   16rem;
+
+  /* --- Espaçamentos de seção (fluid) --- */
+  --section-space-xs:  clamp(1.5rem, 3vw, 2rem);
+  --section-space-sm:  clamp(2rem,   4vw, 3rem);
+  --section-space-md:  clamp(3rem,   6vw, 5rem);
+  --section-space-lg:  clamp(4rem,   8vw, 7rem);
+  --section-space-xl:  clamp(5rem,  10vw, 9rem);
+  --section-space-2xl: clamp(6rem,  12vw, 12rem);
+
+  /* --- Tipografia: tamanhos --- */
+  --font-size-display: clamp(2.5rem, 5vw, 4rem);
+  --font-size-h1:      clamp(2rem,   4vw, 3rem);
+  --font-size-h2:      clamp(1.5rem, 3vw, 2.25rem);
+  --font-size-h3:      clamp(1.25rem, 2vw, 1.75rem);
+  --font-size-h4:      clamp(1.1rem, 1.5vw, 1.375rem);
+  --font-size-h5:      clamp(1rem, 1.2vw, 1.125rem);
+  --font-size-h6:      1rem;
+
+  --font-size-text-lg: 1.125rem;
+  --font-size-text-md: 1rem;
+  --font-size-text-sm: 0.875rem;
+  --font-size-text-xs: 0.75rem;
+
+  /* --- Tipografia: famílias --- */
+  --font-family-sans:    var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  --font-family-mono:    var(--font-geist-mono), 'Courier New', monospace;
+  --font-family-heading: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+
+  /* Atalhos por nível de heading */
+  --font-family-h1: var(--font-family-heading);
+  --font-family-h2: var(--font-family-heading);
+  --font-family-h3: var(--font-family-heading);
+  --font-family-h4: var(--font-family-heading);
+  --font-family-h5: var(--font-family-heading);
+  --font-family-h6: var(--font-family-heading);
+
+  /* --- Tipografia: pesos --- */
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+
+  --font-weight-h1: var(--weight-bold);
+  --font-weight-h2: var(--weight-bold);
+  --font-weight-h3: var(--weight-semibold);
+  --font-weight-h4: var(--weight-semibold);
+  --font-weight-h5: var(--weight-medium);
+  --font-weight-h6: var(--weight-medium);
+
+  /* --- Tipografia: alturas de linha --- */
+  --line-height-1:   1;
+  --line-height-1-1: 1.1;
+  --line-height-1-3: 1.3;
+  --line-height-1-5: 1.5;
+
+  --font-height-h1: var(--line-height-1-1);
+  --font-height-h2: var(--line-height-1-1);
+  --font-height-h3: var(--line-height-1-3);
+  --font-height-h4: var(--line-height-1-3);
+  --font-height-h5: var(--line-height-1-3);
+  --font-height-h6: var(--line-height-1-5);
+
+  /* --- Tipografia: espaçamento de letras --- */
+  --letter-spacing-tight:  -0.03em;
+  --letter-spacing-normal:  0em;
+  --letter-spacing-wide:    0.04em;
+
+  --font-spacing-h1: var(--letter-spacing-tight);
+  --font-spacing-h2: var(--letter-spacing-tight);
+  --font-spacing-h3: var(--letter-spacing-tight);
+  --font-spacing-h4: var(--letter-spacing-normal);
+  --font-spacing-h5: var(--letter-spacing-normal);
+  --font-spacing-h6: var(--letter-spacing-normal);
+
+  /* --- Bordas --- */
+  --border-regular: 0.0625rem;
+  --border-hover:   0.094rem;
+
+  /* --- Raios --- */
+  --radius-sm:   0.25rem;
+  --radius-md:   0.5rem;
+  --radius-lg:   0.75rem;
+  --radius-xl:   1rem;
+  --radius-2xl:  1.5rem;
+  --radius-full: 9999px;
+
+  /* --- Layout --- */
+  --sidebar-width:       15rem;
+  --sidebar-width-collapsed: 3.5rem;
+  --topbar-height:       3.5rem;
+  --container-sm:        40rem;
+  --container-main:      75rem;
+  --container-full:      100%;
+}
+
+/* ---------------------------------------------------------
+   LAYER 2 — TOKENS SEMÂNTICOS (usados em componentes)
+   --------------------------------------------------------- */
+
+/* --- Tema claro (padrão) --- */
+[data-theme="light"],
+:root {
+  --background-one: #ffffff;
+  --background-two: var(--neutral-50);
+
+  --heading-main:   var(--neutral-900);
+  --heading-accent: var(--brand-600);
+  --paragraph:      var(--neutral-600);
+
+  --border: var(--neutral-200);
+
+  --card-background:       #ffffff;
+  --card-border:           var(--neutral-200);
+  --card-background-hover: var(--neutral-50);
+  --card-border-hover:     var(--neutral-300);
+
+  --form-background:          var(--neutral-50);
+  --form-border:              var(--neutral-300);
+  --form-text:                var(--neutral-900);
+  --form-background-hover:    #ffffff;
+  --form-border-hover:        var(--brand-400);
+  --form-background-pressed:  #ffffff;
+  --form-border-pressed:      var(--brand-500);
+  --form-text-pressed:        var(--neutral-900);
+
+  --btn-primary-background:       var(--brand-600);
+  --btn-primary-border:           var(--brand-600);
+  --btn-primary-text:             #ffffff;
+  --btn-primary-background-hover: var(--brand-700);
+  --btn-primary-border-hover:     var(--brand-700);
+  --btn-primary-text-hover:       #ffffff;
+
+  --btn-secondary-background:       transparent;
+  --btn-secondary-border:           var(--brand-600);
+  --btn-secondary-text:             var(--brand-600);
+  --btn-secondary-background-hover: var(--brand-50);
+  --btn-secondary-border-hover:     var(--brand-700);
+  --btn-secondary-text-hover:       var(--brand-700);
+
+  --btn-tertiary-background:       transparent;
+  --btn-tertiary-border:           transparent;
+  --btn-tertiary-text:             var(--neutral-600);
+  --btn-tertiary-background-hover: var(--neutral-100);
+  --btn-tertiary-border-hover:     transparent;
+  --btn-tertiary-text-hover:       var(--neutral-900);
+
+  /* Sidebar específica */
+  --sidebar-background: var(--neutral-900);
+  --sidebar-text:       var(--neutral-400);
+  --sidebar-text-hover: #ffffff;
+  --sidebar-text-active: #ffffff;
+  --sidebar-item-hover:  rgba(255, 255, 255, 0.06);
+  --sidebar-item-active: var(--brand-600);
+  --sidebar-border:      rgba(255, 255, 255, 0.08);
+
+  /* Topbar */
+  --topbar-background: #ffffff;
+  --topbar-border:     var(--neutral-200);
+
+  /* Status */
+  --status-new-bg:         var(--info-50);
+  --status-new-text:       var(--info-700);
+  --status-active-bg:      var(--success-50);
+  --status-active-text:    var(--success-700);
+  --status-pending-bg:     var(--warning-50);
+  --status-pending-text:   var(--warning-700);
+  --status-inactive-bg:    var(--neutral-100);
+  --status-inactive-text:  var(--neutral-600);
+  --status-cancelled-bg:   var(--danger-50);
+  --status-cancelled-text: var(--danger-700);
+}
+
+/* --- Tema escuro --- */
+[data-theme="dark"] {
+  --background-one: var(--neutral-900);
+  --background-two: var(--neutral-800);
+
+  --heading-main:   #ffffff;
+  --heading-accent: var(--brand-300);
+  --paragraph:      var(--neutral-400);
+
+  --border: rgba(255, 255, 255, 0.1);
+
+  --card-background:       var(--neutral-800);
+  --card-border:           rgba(255, 255, 255, 0.08);
+  --card-background-hover: var(--neutral-700);
+  --card-border-hover:     rgba(255, 255, 255, 0.14);
+
+  --form-background:          var(--neutral-800);
+  --form-border:              rgba(255, 255, 255, 0.12);
+  --form-text:                #ffffff;
+  --form-background-hover:    var(--neutral-700);
+  --form-border-hover:        var(--brand-400);
+  --form-background-pressed:  var(--neutral-700);
+  --form-border-pressed:      var(--brand-500);
+  --form-text-pressed:        #ffffff;
+
+  --btn-primary-background:       var(--brand-500);
+  --btn-primary-border:           var(--brand-500);
+  --btn-primary-text:             #ffffff;
+  --btn-primary-background-hover: var(--brand-400);
+  --btn-primary-border-hover:     var(--brand-400);
+  --btn-primary-text-hover:       #ffffff;
+
+  --btn-secondary-background:       transparent;
+  --btn-secondary-border:           var(--brand-400);
+  --btn-secondary-text:             var(--brand-300);
+  --btn-secondary-background-hover: rgba(59, 110, 245, 0.12);
+  --btn-secondary-border-hover:     var(--brand-300);
+  --btn-secondary-text-hover:       var(--brand-200);
+
+  --btn-tertiary-background:       transparent;
+  --btn-tertiary-border:           transparent;
+  --btn-tertiary-text:             var(--neutral-400);
+  --btn-tertiary-background-hover: rgba(255, 255, 255, 0.06);
+  --btn-tertiary-border-hover:     transparent;
+  --btn-tertiary-text-hover:       #ffffff;
+
+  --sidebar-background: var(--neutral-900);
+  --sidebar-border:     rgba(255, 255, 255, 0.06);
+
+  --topbar-background: var(--neutral-900);
+  --topbar-border:     rgba(255, 255, 255, 0.08);
+
+  --status-new-bg:         rgba(59, 130, 246, 0.15);
+  --status-new-text:       var(--info-500);
+  --status-active-bg:      rgba(34, 197, 94, 0.15);
+  --status-active-text:    var(--success-500);
+  --status-pending-bg:     rgba(245, 158, 11, 0.15);
+  --status-pending-text:   var(--warning-500);
+  --status-inactive-bg:    rgba(255, 255, 255, 0.06);
+  --status-inactive-text:  var(--neutral-400);
+  --status-cancelled-bg:   rgba(239, 68, 68, 0.15);
+  --status-cancelled-text: var(--danger-500);
+}
+
+/* ---------------------------------------------------------
+   RESET & BASE
+   --------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-text-md);
+  font-weight: var(--weight-regular);
+  line-height: var(--line-height-1-5);
+  color: var(--paragraph);
+  background-color: var(--background-two);
+}
+
+/* Remove estilo padrão de listas e links */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+  width: 0.375rem;
+  height: 0.375rem;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--neutral-300);
+  border-radius: var(--radius-full);
+}
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background-color: var(--neutral-700);
+}

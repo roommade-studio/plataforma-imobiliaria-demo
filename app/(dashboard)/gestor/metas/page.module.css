@@ -1,0 +1,237 @@
+/* ── Page shell ──────────────────────────────────────────── */
+
+.page {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--size-1-5);
+}
+
+/* ── Header ──────────────────────────────────────────────── */
+
+.page__header {
+  display:         flex;
+  align-items:     flex-end;
+  justify-content: space-between;
+  gap:             var(--size-1-5);
+  flex-wrap:       wrap;
+}
+
+.page__heading {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--size-0-25);
+}
+
+.page__title {
+  font-family:    var(--font-family-heading);
+  font-size:      var(--font-size-h3);
+  font-weight:    var(--font-weight-h3);
+  line-height:    var(--font-height-h3);
+  letter-spacing: var(--font-spacing-h3);
+  color:          var(--heading-main);
+  margin:         0;
+}
+
+.page__subtitle {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-sm);
+  font-weight:    var(--weight-regular);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--paragraph);
+}
+
+/* ── Period selectors ────────────────────────────────────── */
+
+.page__period {
+  display:     flex;
+  align-items: flex-end;
+  gap:         var(--size-0-75);
+  flex-shrink: 0;
+}
+
+/* ── Card header labels ──────────────────────────────────── */
+
+.card__title {
+  font-family:    var(--font-family-heading);
+  font-size:      var(--font-size-h6);
+  font-weight:    var(--font-weight-h6);
+  line-height:    var(--font-height-h6);
+  letter-spacing: var(--font-spacing-h6);
+  color:          var(--heading-main);
+}
+
+.card__subtitle {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-xs);
+  font-weight:    var(--weight-regular);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--paragraph);
+  margin-left:    auto;
+}
+
+/* ── Goals form ──────────────────────────────────────────── */
+
+.form {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--size-1-5);
+}
+
+.form__grid {
+  display:               grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:                   var(--size-1) var(--size-1-5);
+}
+
+@media (max-width: 1024px) {
+  .form__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .form__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.form__actions {
+  display:     flex;
+  align-items: center;
+  gap:         var(--size-0-75);
+}
+
+/* ── Table ───────────────────────────────────────────────── */
+
+.table__wrap {
+  overflow-x: auto;
+}
+
+.table {
+  width:           100%;
+  border-collapse: collapse;
+}
+
+.table__th,
+.table__th--num {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-xs);
+  font-weight:    var(--weight-semibold);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--paragraph);
+  padding:        var(--size-0-5) var(--size-0-75);
+  border-bottom:  var(--border-regular) solid var(--card-border);
+  white-space:    nowrap;
+  text-align:     left;
+}
+
+.table__th--num {
+  text-align: right;
+}
+
+.table__row:hover td {
+  background: var(--card-background-hover);
+}
+
+.table__td,
+.table__td--num {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-sm);
+  font-weight:    var(--weight-regular);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--paragraph);
+  padding:        var(--size-0-5) var(--size-0-75);
+  border-bottom:  var(--border-regular) solid var(--card-border);
+}
+
+.table__td--num {
+  text-align: right;
+}
+
+/* ── Charts side-by-side ─────────────────────────────────── */
+
+.charts__row {
+  display:               grid;
+  grid-template-columns: 1fr 1fr;
+  gap:                   var(--size-1);
+}
+
+@media (max-width: 768px) {
+  .charts__row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Broker cell with avatar ─────────────────────────────── */
+
+.broker__cell {
+  display:     flex;
+  align-items: center;
+  gap:         var(--size-0-75);
+}
+
+.broker__avatar {
+  width:           var(--size-2);
+  height:          var(--size-2);
+  border-radius:   var(--radius-full);
+  background:      var(--btn-primary-background);
+  color:           var(--btn-primary-text);
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  flex-shrink:     0;
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-xs);
+  font-weight:    var(--weight-semibold);
+  line-height:    1;
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+/* ── Status badge ────────────────────────────────────────── */
+
+.status--ativo {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-xs);
+  font-weight:    var(--weight-medium);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          #16a34a;
+}
+
+/* ── Remove button ───────────────────────────────────────── */
+
+.btn__remove {
+  background:     none;
+  border:         none;
+  padding:        0;
+  cursor:         pointer;
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-xs);
+  font-weight:    var(--weight-medium);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          #dc2626;
+}
+
+.btn__remove:hover {
+  text-decoration: underline;
+}
+
+/* ── Modal ───────────────────────────────────────────────── */
+
+.modal__form {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--size-1);
+}
+
+.modal__footer {
+  display:     flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap:         var(--size-0-75);
+}

@@ -1,0 +1,213 @@
+/* ── Page shell ──────────────────────────────────────────── */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-1-5);
+}
+
+.page__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--size-1);
+}
+
+.page__title {
+  font-family:    var(--font-family-heading);
+  font-size:      var(--font-size-h3);
+  font-weight:    var(--font-weight-h3);
+  line-height:    var(--font-height-h3);
+  letter-spacing: var(--font-spacing-h3);
+  color:          var(--heading-main);
+  margin: 0;
+}
+
+/* ── KPI grid ───────────────────────────────────────────── */
+
+.page__kpis {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--size-1);
+}
+
+@media (max-width: 768px) {
+  .page__kpis { grid-template-columns: 1fr; }
+}
+
+/* ── Panel ──────────────────────────────────────────────── */
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-1);
+  margin-top: var(--size-1);
+}
+
+.panel__actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* ── Card header labels ─────────────────────────────────── */
+
+.card__title {
+  font-family:    var(--font-family-heading);
+  font-size:      var(--font-size-h6);
+  font-weight:    var(--font-weight-h6);
+  line-height:    var(--font-height-h6);
+  letter-spacing: var(--font-spacing-h6);
+  color:          var(--heading-main);
+}
+
+.card__subtitle {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-xs);
+  font-weight:    var(--weight-regular);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--paragraph);
+  margin-left: auto;
+}
+
+/* ── Resumo Mensal ──────────────────────────────────────── */
+
+.summary__grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--size-1);
+}
+
+@media (max-width: 900px) {
+  .summary__grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 560px) {
+  .summary__grid { grid-template-columns: 1fr 1fr; }
+}
+
+.summary__cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--size-0-5);
+  padding: var(--size-1);
+  border-radius: var(--radius-md);
+  border: var(--border-regular) solid var(--card-border);
+  background: var(--background-two);
+  text-align: center;
+}
+
+.summary__stage {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-xs);
+  font-weight:    var(--weight-semibold);
+  line-height:    var(--line-height-1-3);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--paragraph);
+  text-transform: uppercase;
+}
+
+.summary__values {
+  font-family:    var(--font-family-heading);
+  font-size:      var(--font-size-h5);
+  font-weight:    var(--font-weight-h5);
+  line-height:    var(--font-height-h5);
+  letter-spacing: var(--font-spacing-h5);
+  color:          var(--heading-main);
+}
+
+.summary__sep {
+  font-weight: var(--weight-regular);
+  color:       var(--paragraph);
+}
+
+.summary__pct {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-sm);
+  font-weight:    var(--weight-medium);
+  line-height:    var(--line-height-1-3);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--paragraph);
+}
+
+.summary__status {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--size-0-25) var(--size-0-5);
+  border-radius: var(--radius-full);
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-xs);
+  font-weight:    var(--weight-medium);
+  line-height:    var(--line-height-1-3);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+.status--green {
+  background: var(--success-50);
+  color:      var(--success-700);
+}
+
+.status--yellow {
+  background: var(--warning-50);
+  color:      var(--warning-700);
+}
+
+.status--red {
+  background: var(--danger-50);
+  color:      var(--danger-700);
+}
+
+/* ── Modal form ─────────────────────────────────────────── */
+
+.modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-1);
+}
+
+.modal__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--size-0-75);
+}
+
+.form__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-0-5);
+}
+
+.form__label {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-sm);
+  font-weight:    var(--weight-medium);
+  line-height:    var(--line-height-1-3);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--heading-main);
+}
+
+.form__input {
+  width: 100%;
+  padding: var(--size-0-75) var(--size-1);
+  border-radius: var(--radius-md);
+  border: var(--border-regular) solid var(--form-border);
+  background: var(--form-background);
+  color: var(--form-text);
+  font-family: var(--font-family-sans);
+  font-size:   var(--font-size-text-md);
+  line-height: var(--line-height-1-3);
+  outline: none;
+  transition: border-color 0.15s;
+  box-sizing: border-box;
+}
+
+.form__input:hover {
+  border-color: var(--form-border-hover);
+  background:   var(--form-background-hover);
+}
+
+.form__input:focus {
+  border-color: var(--btn-primary-background);
+  background:   var(--form-background-pressed);
+}

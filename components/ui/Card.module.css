@@ -1,0 +1,38 @@
+.card {
+  background-color: var(--card-background);
+  border: var(--border-regular) solid var(--card-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.card--hoverable {
+  transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  cursor: pointer;
+}
+.card--hoverable:hover {
+  background-color: var(--card-background-hover);
+  border-color:     var(--card-border-hover);
+  box-shadow:       0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.card__header {
+  padding: var(--size-1) var(--size-1-5);
+  border-bottom: var(--border-regular) solid var(--card-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--size-1);
+}
+
+.card__body {
+  padding: var(--size-1-5);
+}
+
+.card__footer {
+  padding: var(--size-1) var(--size-1-5);
+  border-top: var(--border-regular) solid var(--card-border);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--size-0-75);
+}

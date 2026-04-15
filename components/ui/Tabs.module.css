@@ -1,0 +1,62 @@
+/* =====================================================
+   TABS
+   ===================================================== */
+
+.tabs {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* ----- Tab list ----- */
+
+.tabs__list {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--size-0-5);
+  border-bottom: var(--border-regular) solid var(--border);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tabs__list::-webkit-scrollbar {
+  display: none;
+}
+
+/* ----- Tab trigger ----- */
+
+.tabs__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--size-0-5);
+  padding: var(--size-0-5) var(--size-1);
+  background: none;
+  border: none;
+  border-bottom: 0.125rem solid transparent;
+  margin-bottom: calc(-1 * var(--border-regular));
+  cursor: pointer;
+  white-space: nowrap;
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-sm);
+  font-weight:    var(--weight-medium);
+  line-height:    var(--line-height-1-3);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--paragraph);
+  transition: color 0.12s ease, border-color 0.12s ease;
+}
+
+.tabs__trigger:hover {
+  color: var(--heading-main);
+}
+
+.tabs__trigger--active {
+  color:        var(--heading-accent);
+  border-bottom-color: var(--heading-accent);
+  font-weight:  var(--weight-semibold);
+}
+
+/* ----- Tab panel ----- */
+
+.tabs__panel {
+  padding-top: var(--size-1-5);
+}

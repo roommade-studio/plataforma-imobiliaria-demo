@@ -1,0 +1,43 @@
+/* =====================================================
+   PROGRESS RING
+   ===================================================== */
+
+.ring {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ring__arc {
+  transition: stroke-dashoffset 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ring__center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--size-0-125, 0.125rem);
+}
+
+.ring__label {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-sm);
+  font-weight:    var(--weight-bold);
+  line-height:    var(--line-height-1);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--heading-main);
+}
+
+.ring__sublabel {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-xs, 0.625rem);
+  font-weight:    var(--weight-regular);
+  line-height:    var(--line-height-1);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--paragraph);
+}

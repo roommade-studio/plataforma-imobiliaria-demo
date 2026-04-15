@@ -1,0 +1,286 @@
+/* ── Page shell ──────────────────────────────────────────── */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-1-5);
+}
+
+/* ── Header ─────────────────────────────────────────────── */
+
+.page__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-0-25);
+}
+
+.page__title {
+  font-family:    var(--font-family-heading);
+  font-size:      var(--font-size-h3);
+  font-weight:    var(--font-weight-h3);
+  line-height:    var(--font-height-h3);
+  letter-spacing: var(--font-spacing-h3);
+  color:          var(--heading-main);
+  margin: 0;
+}
+
+.page__subtitle {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-sm);
+  font-weight:    var(--weight-regular);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--paragraph);
+  margin: 0;
+}
+
+/* ── Panel layout ───────────────────────────────────────── */
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-1);
+  margin-top: var(--size-1);
+}
+
+.panel__summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+  gap: var(--size-1);
+}
+
+/* ── Panel toolbar (filter row + CTA) ──────────────────── */
+
+.panel__toolbar {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  gap:             var(--size-1);
+  flex-wrap:       wrap;
+}
+
+.panel__filters {
+  display: flex;
+  align-items: center;
+  gap: var(--size-0-75);
+}
+
+.filter__select {
+  min-width: 8rem;
+}
+
+.panel__lock {
+  display:     flex;
+  align-items: center;
+  gap:         var(--size-0-5);
+  color:       var(--paragraph);
+}
+
+.panel__lock__text {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-xs);
+  font-weight:    var(--weight-regular);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--paragraph);
+}
+
+/* ── Card header labels ─────────────────────────────────── */
+
+.card__title {
+  font-family:    var(--font-family-heading);
+  font-size:      var(--font-size-h6);
+  font-weight:    var(--font-weight-h6);
+  line-height:    var(--font-height-h6);
+  letter-spacing: var(--font-spacing-h6);
+  color:          var(--heading-main);
+}
+
+.card__subtitle {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-xs);
+  font-weight:    var(--weight-regular);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--paragraph);
+  margin-left: auto;
+}
+
+/* ── Table ──────────────────────────────────────────────── */
+
+.table__wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table__th {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-xs);
+  font-weight:    var(--weight-semibold);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-wide);
+  color:          var(--paragraph);
+  text-align: left;
+  text-transform: uppercase;
+  padding: var(--size-0-75) var(--size-1);
+  border-bottom: var(--border-regular) solid var(--border);
+  white-space: nowrap;
+}
+
+/* Summary/totals row */
+.table__row__total {
+  background: var(--background-two);
+}
+
+.table__td__total {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-xs);
+  font-weight:    var(--weight-semibold);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-wide);
+  color:          var(--heading-main);
+  text-transform: uppercase;
+  padding: var(--size-0-75) var(--size-1);
+  vertical-align: middle;
+  border-bottom: var(--border-regular) solid var(--border);
+}
+
+.table__td--num__total {
+  font-family:    var(--font-family-mono);
+  font-size:      var(--font-size-text-xs);
+  font-weight:    var(--weight-semibold);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--heading-accent);
+  padding: var(--size-0-75) var(--size-1);
+  vertical-align: middle;
+  border-bottom: var(--border-regular) solid var(--border);
+}
+
+.table__row {
+  transition: background 0.15s ease;
+}
+
+.table__row:hover {
+  background: var(--background-two);
+}
+
+.table__row:not(:last-child) {
+  border-bottom: var(--border-regular) solid var(--border);
+}
+
+.table__td {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-sm);
+  font-weight:    var(--weight-regular);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--paragraph);
+  padding: var(--size-0-75) var(--size-1);
+  vertical-align: middle;
+}
+
+.table__td--num {
+  font-family:    var(--font-family-mono);
+  font-size:      var(--font-size-text-sm);
+  font-weight:    var(--weight-medium);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--heading-main);
+  padding: var(--size-0-75) var(--size-1);
+  vertical-align: middle;
+}
+
+/* Inline edit button inside table */
+.table__edit__btn {
+  background:     none;
+  border:         var(--border-regular) solid var(--border);
+  border-radius:  var(--radius-sm);
+  padding:        var(--size-0-25) var(--size-0-75);
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-xs);
+  font-weight:    var(--weight-medium);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--paragraph);
+  cursor:         pointer;
+  transition:     background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.table__edit__btn:hover {
+  background:    var(--card-background-hover);
+  border-color:  var(--card-border-hover);
+  color:         var(--heading-main);
+}
+
+/* ── Status badges ──────────────────────────────────────── */
+
+.badge {
+  display:        inline-flex;
+  align-items:    center;
+  padding:        var(--size-0-25) var(--size-0-75);
+  border-radius:  var(--radius-full);
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-xs);
+  font-weight:    var(--weight-medium);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  white-space:    nowrap;
+}
+
+/* Goal status badges */
+.badge[data-goal-status="concluido"] {
+  background: var(--status-active-bg);
+  color:      var(--status-active-text);
+}
+
+.badge[data-goal-status="em-andamento"] {
+  background: var(--status-processing-bg, rgba(59,110,245,0.12));
+  color:      var(--status-processing-text, #3b6ef5);
+}
+
+.badge[data-goal-status="planejado"] {
+  background: var(--status-inactive-bg, var(--background-two));
+  color:      var(--paragraph);
+}
+
+/* Commission status badges */
+.badge[data-commission-status="recebido"] {
+  background: var(--status-active-bg);
+  color:      var(--status-active-text);
+}
+
+.badge[data-commission-status="previsto"] {
+  background: var(--status-processing-bg, rgba(59,110,245,0.12));
+  color:      var(--status-processing-text, #3b6ef5);
+}
+
+.badge[data-commission-status="atrasado"] {
+  background: var(--status-error-bg, rgba(239,68,68,0.12));
+  color:      var(--status-error-text, #ef4444);
+}
+
+/* ── Modal form ─────────────────────────────────────────── */
+
+.form {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--size-1);
+}
+
+.form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--size-1);
+}
+
+.modal__actions {
+  display:         flex;
+  justify-content: flex-end;
+  gap:             var(--size-0-75);
+}

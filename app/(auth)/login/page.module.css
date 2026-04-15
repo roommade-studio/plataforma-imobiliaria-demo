@@ -1,0 +1,68 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background-two);
+  padding: var(--size-1);
+}
+
+.card {
+  width: 100%;
+  max-width: 26rem;
+}
+
+.header {
+  text-align: center;
+  padding: var(--size-2) var(--size-2) var(--size-1-5);
+}
+
+.logo {
+  width: var(--size-3);
+  height: var(--size-3);
+  background-color: var(--brand-600);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--size-1);
+}
+
+.title {
+  font-family:    var(--font-family-heading);
+  font-size:      var(--font-size-h4);
+  font-weight:    var(--font-weight-h4);
+  line-height:    var(--font-height-h4);
+  letter-spacing: var(--font-spacing-h4);
+  color:          var(--heading-main);
+  margin-bottom: var(--size-0-25);
+}
+
+.subtitle {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-sm);
+  font-weight:    var(--weight-regular);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--paragraph);
+}
+
+.form {
+  padding: var(--size-1-5) var(--size-2) var(--size-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-1);
+}
+
+.error {
+  padding: var(--size-0-75) var(--size-1);
+  background-color: var(--status-cancelled-bg);
+  border: var(--border-regular) solid var(--danger-500);
+  border-radius: var(--radius-md);
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-sm);
+  font-weight:    var(--weight-regular);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--status-cancelled-text);
+}

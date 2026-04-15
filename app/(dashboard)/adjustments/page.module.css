@@ -1,0 +1,146 @@
+/* ─── Page layout ─────────────────────────────────────────── */
+.page {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--size-1-5);
+}
+
+.page__header {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  gap:             var(--size-1);
+}
+
+.page__title {
+  font-family:    var(--font-family-heading);
+  font-size:      var(--font-size-h4);
+  font-weight:    var(--font-weight-h4);
+  line-height:    var(--font-height-h4);
+  letter-spacing: var(--font-spacing-h4);
+  color:          var(--heading-main);
+}
+
+/* ─── Stats grid ──────────────────────────────────────────── */
+.stats {
+  display:               grid;
+  grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+  gap:                   var(--size-1);
+}
+
+/* ─── Table ───────────────────────────────────────────────── */
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.table {
+  width:           100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-sm);
+  font-weight:    var(--weight-semibold);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--paragraph);
+  padding:        var(--size-0-75) var(--size-1);
+  text-align:     left;
+  border-bottom:  var(--border-regular) solid var(--card-border);
+  white-space:    nowrap;
+}
+
+.table td {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-sm);
+  font-weight:    var(--weight-regular);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--heading-main);
+  padding:        var(--size-0-75) var(--size-1);
+  border-bottom:  var(--border-regular) solid var(--card-border);
+}
+
+.table__row:last-child td {
+  border-bottom: none;
+}
+
+.table__row:hover td {
+  background-color: var(--card-background-hover);
+}
+
+.td--primary {
+  font-weight: var(--weight-medium) !important;
+}
+
+.td--number {
+  font-variant-numeric: tabular-nums;
+  white-space:          nowrap;
+}
+
+/* ─── Variação column ─────────────────────────────────────── */
+.variacao {
+  font-family:      var(--font-family-sans);
+  font-size:        var(--font-size-text-sm);
+  font-weight:      var(--weight-semibold);
+  line-height:      var(--line-height-1-5);
+  letter-spacing:   var(--letter-spacing-normal);
+  font-variant-numeric: tabular-nums;
+  white-space:      nowrap;
+}
+
+.variacao--up {
+  color: var(--success-700);
+}
+
+.variacao--down {
+  color: var(--danger-700);
+}
+
+/* ─── Badges ──────────────────────────────────────────────── */
+.badge {
+  display:        inline-flex;
+  align-items:    center;
+  padding:        var(--size-0-25) var(--size-0-75);
+  border-radius:  var(--radius-full);
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-xs);
+  font-weight:    var(--weight-semibold);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  white-space:    nowrap;
+}
+
+.badge--green {
+  background-color: var(--status-active-bg);
+  color:            var(--status-active-text);
+}
+
+.badge--yellow {
+  background-color: var(--status-pending-bg);
+  color:            var(--status-pending-text);
+}
+
+.badge--blue {
+  background-color: var(--status-new-bg);
+  color:            var(--status-new-text);
+}
+
+.badge--gray {
+  background-color: var(--status-inactive-bg);
+  color:            var(--status-inactive-text);
+}
+
+/* ─── Modal form ──────────────────────────────────────────── */
+.form {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--size-1);
+}
+
+.modal__footer {
+  display:         flex;
+  justify-content: flex-end;
+  gap:             var(--size-0-75);
+}

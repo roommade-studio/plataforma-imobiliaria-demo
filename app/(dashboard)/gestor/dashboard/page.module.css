@@ -1,0 +1,389 @@
+/* ── Page shell ──────────────────────────────────────────── */
+
+.page {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--size-1-5);
+}
+
+/* ── Header ──────────────────────────────────────────────── */
+
+.page__header {
+  display:     flex;
+  align-items: baseline;
+  gap:         var(--size-1);
+  flex-wrap:   wrap;
+}
+
+.page__title {
+  font-family:    var(--font-family-heading);
+  font-size:      var(--font-size-h3);
+  font-weight:    var(--font-weight-h3);
+  line-height:    var(--font-height-h3);
+  letter-spacing: var(--font-spacing-h3);
+  color:          var(--heading-main);
+  margin:         0;
+}
+
+.page__subtitle {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-sm);
+  font-weight:    var(--weight-regular);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--paragraph);
+}
+
+/* ── Stat cards row ──────────────────────────────────────── */
+
+.page__stats {
+  display:               grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap:                   var(--size-1);
+}
+
+@media (max-width: 1200px) {
+  .page__stats {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .page__stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .page__stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Section wrapper ─────────────────────────────────────── */
+
+.page__section {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--size-1);
+}
+
+.section__title {
+  font-family:    var(--font-family-heading);
+  font-size:      var(--font-size-h5);
+  font-weight:    var(--font-weight-h5);
+  line-height:    var(--font-height-h5);
+  letter-spacing: var(--font-spacing-h5);
+  color:          var(--heading-main);
+  margin:         0;
+}
+
+/* ── Brokers grid ────────────────────────────────────────── */
+
+.brokers__grid {
+  display:               grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:                   var(--size-1);
+}
+
+@media (max-width: 1024px) {
+  .brokers__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .brokers__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Broker card ─────────────────────────────────────────── */
+
+.broker-card__header {
+  display:     flex;
+  align-items: center;
+  gap:         var(--size-0-75);
+  margin-bottom: var(--size-1);
+}
+
+.broker-card__avatar {
+  width:           var(--size-2-5);
+  height:          var(--size-2-5);
+  border-radius:   var(--radius-full);
+  background:      var(--btn-primary-background);
+  color:           var(--btn-primary-text);
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  flex-shrink:     0;
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-xs);
+  font-weight:    var(--weight-semibold);
+  line-height:    1;
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+.broker-card__info {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--size-0-25);
+  flex:           1;
+  min-width:      0;
+}
+
+.broker-card__name {
+  font-family:    var(--font-family-heading);
+  font-size:      var(--font-size-text-md);
+  font-weight:    var(--weight-semibold);
+  line-height:    var(--line-height-1-3);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--heading-main);
+  white-space:    nowrap;
+  overflow:       hidden;
+  text-overflow:  ellipsis;
+}
+
+.broker-card__status--green {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-xs);
+  font-weight:    var(--weight-regular);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          #16a34a;
+}
+
+.broker-card__status--yellow {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-xs);
+  font-weight:    var(--weight-regular);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          #d97706;
+}
+
+.broker-card__status--red {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-xs);
+  font-weight:    var(--weight-regular);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          #dc2626;
+}
+
+.broker-card__score {
+  display:     flex;
+  align-items: center;
+  gap:         var(--size-0-25);
+  flex-shrink: 0;
+}
+
+.broker-card__score-dot--green {
+  width:         var(--size-0-5);
+  height:        var(--size-0-5);
+  border-radius: var(--radius-full);
+  background:    #16a34a;
+}
+
+.broker-card__score-dot--yellow {
+  width:         var(--size-0-5);
+  height:        var(--size-0-5);
+  border-radius: var(--radius-full);
+  background:    #d97706;
+}
+
+.broker-card__score-dot--red {
+  width:         var(--size-0-5);
+  height:        var(--size-0-5);
+  border-radius: var(--radius-full);
+  background:    #dc2626;
+}
+
+.broker-card__score-pct {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-xs);
+  font-weight:    var(--weight-semibold);
+  line-height:    var(--line-height-1-3);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--paragraph);
+}
+
+/* ── Broker funnel metrics ───────────────────────────────── */
+
+.broker-card__metrics {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--size-0-5);
+  margin-bottom:  var(--size-1);
+}
+
+.broker-card__metric-row {
+  display:     flex;
+  align-items: center;
+  gap:         var(--size-0-75);
+}
+
+.broker-card__metric-label {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-xs);
+  font-weight:    var(--weight-regular);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--paragraph);
+  flex:           1;
+}
+
+.broker-card__metric-value {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-sm);
+  font-weight:    var(--weight-semibold);
+  line-height:    var(--line-height-1-3);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--heading-main);
+}
+
+.broker-card__metric-goal {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-xs);
+  font-weight:    var(--weight-regular);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--paragraph);
+  min-width:      var(--size-2);
+}
+
+/* ── Broker card toggle button ───────────────────────────── */
+
+.broker-card__toggle {
+  display:         flex;
+  align-items:     center;
+  gap:             var(--size-0-5);
+  background:      none;
+  border:          none;
+  padding:         var(--size-0-5) 0;
+  cursor:          pointer;
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-xs);
+  font-weight:    var(--weight-medium);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--heading-accent);
+}
+
+.broker-card__toggle:hover {
+  opacity: 0.8;
+}
+
+.broker-card__chart {
+  margin-top: var(--size-0-75);
+  border-top: var(--border-regular) solid var(--card-border);
+  padding-top: var(--size-0-75);
+}
+
+/* ── Card header labels ──────────────────────────────────── */
+
+.card__title {
+  font-family:    var(--font-family-heading);
+  font-size:      var(--font-size-h6);
+  font-weight:    var(--font-weight-h6);
+  line-height:    var(--font-height-h6);
+  letter-spacing: var(--font-spacing-h6);
+  color:          var(--heading-main);
+}
+
+.card__subtitle {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-xs);
+  font-weight:    var(--weight-regular);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--paragraph);
+  margin-left:    auto;
+}
+
+/* ── Table ───────────────────────────────────────────────── */
+
+.table__wrap {
+  overflow-x: auto;
+}
+
+.table {
+  width:           100%;
+  border-collapse: collapse;
+}
+
+.table__th,
+.table__th--num {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-xs);
+  font-weight:    var(--weight-semibold);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--paragraph);
+  padding:        var(--size-0-5) var(--size-0-75);
+  border-bottom:  var(--border-regular) solid var(--card-border);
+  white-space:    nowrap;
+  text-align:     left;
+}
+
+.table__th--num {
+  text-align: right;
+}
+
+.table__row:hover td {
+  background: var(--card-background-hover);
+}
+
+.table__td,
+.table__td--num {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-sm);
+  font-weight:    var(--weight-regular);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--paragraph);
+  padding:        var(--size-0-5) var(--size-0-75);
+  border-bottom:  var(--border-regular) solid var(--card-border);
+}
+
+.table__td--num {
+  text-align: right;
+}
+
+.table__total td {
+  border-top:    var(--border-regular) solid var(--card-border);
+  border-bottom: none;
+  padding-top:   var(--size-0-75);
+}
+
+/* ── Alerts list ─────────────────────────────────────────── */
+
+.alertas__list {
+  list-style: none;
+  margin:     0;
+  padding:    0;
+  display:    flex;
+  flex-direction: column;
+  gap:        var(--size-0-75);
+}
+
+.alertas__item {
+  display:     flex;
+  align-items: center;
+  gap:         var(--size-0-75);
+}
+
+.alertas__icon {
+  flex-shrink: 0;
+  color:       #d97706;
+  display:     flex;
+}
+
+.alertas__text {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-sm);
+  font-weight:    var(--weight-regular);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--paragraph);
+}
