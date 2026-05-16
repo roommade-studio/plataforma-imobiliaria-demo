@@ -54,16 +54,13 @@ export default function Topbar({ title, actions, notificationCount = 0 }: Topbar
           type="button"
           className={styles.topbar__toggle}
           onClick={toggleSidebar}
-          aria-label={isSidebarOpen ? 'Fechar menu lateral' : 'Abrir menu lateral'}
+          aria-label={isSidebarOpen ? 'Recolher menu lateral' : 'Expandir menu lateral'}
         >
-          {/* Hamburger icon */}
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <line x1="3" y1="6"  x2="21" y2="6"  />
-            <line x1="3" y1="12" x2="21" y2="12" />
-            <line x1="3" y1="18" x2="21" y2="18" />
+            <rect x="3" y="3" width="18" height="18" rx="2" />
+            <path d="M9 3v18" />
           </svg>
         </button>
-
         <h1 className={styles.topbar__title}>{title}</h1>
       </div>
 

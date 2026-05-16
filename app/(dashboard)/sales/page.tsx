@@ -9,6 +9,42 @@ import Modal from '@/components/ui/Modal'
 import Input, { Select, Textarea } from '@/components/ui/Input'
 import styles from './page.module.css'
 
+/* ─── Icons ──────────────────────────────────────────────── */
+
+function IconCheck() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="20 6 9 17 4 12" />
+    </svg>
+  )
+}
+function IconDollar() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="12" y1="1" x2="12" y2="23" />
+      <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+    </svg>
+  )
+}
+function IconCoins() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="8" cy="8" r="6" />
+      <path d="M18.09 10.37A6 6 0 1 1 10.34 18" />
+      <path d="M7 6h1v4" />
+      <line x1="16.71" y1="13.88" x2="17" y2="14" />
+    </svg>
+  )
+}
+function IconTag() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
+      <line x1="7" y1="7" x2="7.01" y2="7" />
+    </svg>
+  )
+}
+
 /* ─── Types ─────────────────────────────────────────────── */
 
 type SaleStatus = 'Concluída' | 'Em Análise' | 'Cancelada'
@@ -83,10 +119,10 @@ export default function SalesPage() {
 
         {/* Stats */}
         <div className={styles.stats}>
-          <StatCard label="Vendas no Mês"        value={3}           trend={15}    trendLabel="vs. mês anterior" />
-          <StatCard label="Receita Total"         value="R$ 2,4M"                  />
-          <StatCard label="Comissão Recebida"     value="R$ 72k"      trend={8.3}  trendLabel="vs. mês anterior" />
-          <StatCard label="Ticket Médio"          value="R$ 800k"                  />
+          <StatCard label="Vendas no Mês"        value={3}           trend={15}    trendLabel="vs. mês anterior" icon={<IconCheck />} />
+          <StatCard label="Receita Total"         value="R$ 2,4M"                  icon={<IconDollar />} />
+          <StatCard label="Comissão Recebida"     value="R$ 72k"      trend={8.3}  trendLabel="vs. mês anterior" icon={<IconCoins />} />
+          <StatCard label="Ticket Médio"          value="R$ 800k"                  icon={<IconTag />} />
         </div>
 
         {/* Filters */}

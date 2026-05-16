@@ -74,16 +74,17 @@ interface KpiItem {
   meta?:    string
   trend?:   string
   progress: number
+  icon:     React.ReactNode
 }
 
 const kpiItems: KpiItem[] = [
-  { label: 'Captações',           value: '5',       meta: 'Meta: 8',       progress: Math.round((5 / 8) * 100)   },
-  { label: 'Carteira Ativa',      value: '18',      meta: 'Meta: 20',      progress: Math.round((18 / 20) * 100) },
-  { label: 'Valor de Carteira',   value: 'R$ 14.2M', meta: 'Meta: R$ 16M', progress: Math.round((14.2 / 16) * 100) },
-  { label: 'Ticket Médio',        value: 'R$ 790k',  trend: '+3.2%',       progress: 100                         },
-  { label: 'VGV Bruto',           value: 'R$ 2.4M',  meta: 'Meta: R$ 3.2M', progress: Math.round((2.4 / 3.2) * 100) },
-  { label: 'VGC — Gestões Assin.', value: '4',       meta: 'Meta: 6',      progress: Math.round((4 / 6) * 100)   },
-  { label: 'Vendas',              value: '3',        meta: 'Meta: 4', trend: '+50%', progress: Math.round((3 / 4) * 100) },
+  { label: 'Captações',            value: '5',        meta: 'Meta: 8',        progress: Math.round((5 / 8) * 100),     icon: <KpiIconBuilding />  },
+  { label: 'Carteira Ativa',       value: '18',       meta: 'Meta: 20',       progress: Math.round((18 / 20) * 100),   icon: <KpiIconBriefcase /> },
+  { label: 'Valor de Carteira',    value: 'R$ 14.2M', meta: 'Meta: R$ 16M',   progress: Math.round((14.2 / 16) * 100), icon: <KpiIconDollar />    },
+  { label: 'Ticket Médio',         value: 'R$ 790k',  trend: '+3.2%',         progress: 100,                            icon: <KpiIconTag />       },
+  { label: 'VGV Bruto',            value: 'R$ 2.4M',  meta: 'Meta: R$ 3.2M', progress: Math.round((2.4 / 3.2) * 100), icon: <KpiIconTrendUp />   },
+  { label: 'VGC — Gestões Assin.', value: '4',        meta: 'Meta: 6',        progress: Math.round((4 / 6) * 100),     icon: <KpiIconPercent />   },
+  { label: 'Vendas',               value: '3',        meta: 'Meta: 4', trend: '+50%', progress: Math.round((3 / 4) * 100), icon: <KpiIconCheck /> },
 ]
 
 /* ── alert data ─────────────────────────────────────────── */
@@ -116,6 +117,115 @@ function IconAlert() {
       <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
       <line x1="12" y1="9" x2="12" y2="13" />
       <line x1="12" y1="17" x2="12.01" y2="17" />
+    </svg>
+  )
+}
+
+/* ── KPI semicircle gauge ───────────────────────────────── */
+
+function gaugeColor(pct: number) {
+  return pct >= 80 ? '#16A34A' : pct >= 50 ? '#2563EB' : '#DC2626'
+}
+
+function SemiCircleGauge({ percentage, color }: { percentage: number; color: string }) {
+  const angle    = (percentage / 100) * 180
+  const radians  = (angle - 180) * (Math.PI / 180)
+  const x        = 50 + 40 * Math.cos(radians)
+  const y        = 50 + 40 * Math.sin(radians)
+  const largeArc = angle > 180 ? 1 : 0
+
+  return (
+    <svg viewBox="0 0 100 55" width="100" height="55">
+      <path
+        d="M 10 50 A 40 40 0 0 1 90 50"
+        fill="none"
+        stroke="#E5E7EB"
+        strokeWidth="8"
+        strokeLinecap="round"
+      />
+      {percentage > 0 && (
+        <path
+          d={`M 10 50 A 40 40 0 ${largeArc} 1 ${x} ${y}`}
+          fill="none"
+          stroke={color}
+          strokeWidth="8"
+          strokeLinecap="round"
+        />
+      )}
+      <text
+        x="50"
+        y="46"
+        textAnchor="middle"
+        fontSize="13"
+        fontWeight="bold"
+        fill={color}
+      >
+        {percentage}%
+      </text>
+    </svg>
+  )
+}
+
+/* ── KPI card icons ─────────────────────────────────────── */
+
+function KpiIconBuilding() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="4" y="2" width="16" height="20" rx="1" />
+      <path d="M9 22V12h6v10" />
+      <rect x="8" y="6" width="2" height="2" />
+      <rect x="14" y="6" width="2" height="2" />
+      <rect x="8" y="10" width="2" height="2" />
+      <rect x="14" y="10" width="2" height="2" />
+    </svg>
+  )
+}
+function KpiIconBriefcase() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="7" width="20" height="14" rx="2" />
+      <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
+      <line x1="2" y1="12" x2="22" y2="12" />
+    </svg>
+  )
+}
+function KpiIconDollar() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="12" y1="1" x2="12" y2="23" />
+      <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+    </svg>
+  )
+}
+function KpiIconTag() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
+      <line x1="7" y1="7" x2="7.01" y2="7" />
+    </svg>
+  )
+}
+function KpiIconTrendUp() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
+      <polyline points="16 7 22 7 22 13" />
+    </svg>
+  )
+}
+function KpiIconPercent() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="19" y1="5" x2="5" y2="19" />
+      <circle cx="6.5" cy="6.5" r="2.5" />
+      <circle cx="17.5" cy="17.5" r="2.5" />
+    </svg>
+  )
+}
+function KpiIconCheck() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="20 6 9 17 4 12" />
     </svg>
   )
 }
@@ -174,17 +284,31 @@ export default function DashboardPage() {
       <div className={styles.page__kpis}>
         {kpiItems.map((kpi) => (
           <div key={kpi.label} className={styles.kpi__card}>
-            <div className={styles.kpi__body}>
-              <div className={styles.kpi__info}>
-                <p className={styles.kpi__label}>{kpi.label}</p>
-                <p className={styles.kpi__value}>{kpi.value}</p>
-                {kpi.meta && <p className={styles.kpi__meta}>{kpi.meta}</p>}
-                {kpi.trend && !kpi.meta && <p className={styles['kpi__meta--trend']}>{kpi.trend}</p>}
-                {kpi.trend && kpi.meta && <p className={styles['kpi__meta--trend']}>{kpi.trend}</p>}
+            {/* Icon + label */}
+            <div className={styles.kpi__header}>
+              <span className={styles.kpi__icon}>{kpi.icon}</span>
+              <p className={styles.kpi__label}>{kpi.label}</p>
+            </div>
+            {/* Semicircle gauge */}
+            <div className={styles['kpi__gauge-area']}>
+              <SemiCircleGauge percentage={kpi.progress} color={gaugeColor(kpi.progress)} />
+            </div>
+            {/* Meta + realizado */}
+            <div className={styles.kpi__bottom}>
+              <div className={styles['kpi__bottom-item']}>
+                <span className={styles['kpi__bottom-label']}>Realizado</span>
+                <span className={styles['kpi__bottom-value']}>{kpi.value}</span>
               </div>
-              <div className={styles.kpi__ring}>
-                <ProgressRing value={kpi.progress} size={48} stroke={5} label={`${kpi.progress}%`} />
-              </div>
+              {kpi.meta && (
+                <div className={styles['kpi__bottom-item']}>
+                  <span className={styles['kpi__bottom-label']}>{kpi.meta}</span>
+                </div>
+              )}
+              {kpi.trend && (
+                <div className={styles['kpi__bottom-item']}>
+                  <span className={styles['kpi__meta--trend']}>{kpi.trend}</span>
+                </div>
+              )}
             </div>
           </div>
         ))}

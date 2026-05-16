@@ -156,6 +156,44 @@ function IconTarget() {
   )
 }
 
+function IconCashFlow() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="7" width="20" height="14" rx="2" />
+      <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
+      <line x1="12" y1="12" x2="12" y2="16" />
+      <line x1="10" y1="14" x2="14" y2="14" />
+    </svg>
+  )
+}
+
+function IconMegaphone() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M3 11l19-9-9 19-2-8-8-2z" />
+    </svg>
+  )
+}
+
+function IconAnalise() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="11" cy="11" r="8" />
+      <line x1="21" y1="21" x2="16.65" y2="16.65" />
+      <line x1="11" y1="8" x2="11" y2="14" />
+      <line x1="8" y1="11" x2="14" y2="11" />
+    </svg>
+  )
+}
+
+function IconTrafficManager() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+    </svg>
+  )
+}
+
 /* =====================================================
    Sidebar component
    ===================================================== */
@@ -163,7 +201,7 @@ function IconTarget() {
 interface SidebarProps {
   userName:  string
   userEmail: string
-  role:      'admin' | 'corretor' | 'gestor'
+  role:      'admin' | 'corretor' | 'gestor' | 'gestor_trafego'
   onLogout:  () => void
 }
 
@@ -203,8 +241,17 @@ export default function Sidebar({ userName, userEmail: _userEmail, role, onLogou
         {role === 'gestor' && (
           <div className={styles.sidebar__section}>
             <span className={styles['sidebar__section-title']}>Minha Equipe</span>
-            <NavLink href="/gestor/dashboard" label="Visão da Equipe"   icon={<IconTeam />}   />
-            <NavLink href="/gestor/metas"     label="Metas da Empresa"  icon={<IconTarget />} />
+            <NavLink href="/gestor/dashboard"         label="Visão da Equipe"     icon={<IconTeam />}      />
+            <NavLink href="/gestor/metas"             label="Metas da Empresa"    icon={<IconTarget />}    />
+            <NavLink href="/gestor/fundo-marketing"   label="Fundo de Marketing"  icon={<IconMegaphone />} />
+          </div>
+        )}
+
+        {/* Gestão de Tráfego — visible for gestor, admin, gestor_trafego (testing) */}
+        {(role === 'gestor' || role === 'admin' || role === 'gestor_trafego') && (
+          <div className={styles.sidebar__section}>
+            <span className={styles['sidebar__section-title']}>Gestão de Tráfego</span>
+            <NavLink href="/gestor-trafego" label="Painel de Tráfego" icon={<IconTrafficManager />} />
           </div>
         )}
 
@@ -217,15 +264,17 @@ export default function Sidebar({ userName, userEmail: _userEmail, role, onLogou
         {/* Meu Negócio */}
         <div className={styles.sidebar__section}>
           <span className={styles['sidebar__section-title']}>Meu Negócio</span>
-          <NavLink href="/dashboard" label="Meu Dashboard"      icon={<IconDashboard />} />
-          <NavLink href="/metrics"   label="Planejamento"       icon={<IconChartBar />}  />
-          <NavLink href="/mentoria"  label="Minha Performance"  icon={<IconMentor />}    />
+          <NavLink href="/dashboard"    label="Meu Dashboard"      icon={<IconDashboard />} />
+          <NavLink href="/metrics"      label="Planejamento"       icon={<IconChartBar />}  />
+          <NavLink href="/mentoria"     label="Minha Performance"  icon={<IconMentor />}    />
+          <NavLink href="/fluxo-caixa"  label="Fluxo de Caixa"    icon={<IconCashFlow />}  />
         </div>
 
         {/* Análises */}
         <div className={styles.sidebar__section}>
           <span className={styles['sidebar__section-title']}>Análises</span>
-          <NavLink href="/benchmarking" label="Metas vs Realizado" icon={<IconTrendingUp />} />
+          <NavLink href="/benchmarking"    label="Metas vs Realizado"   icon={<IconTrendingUp />} />
+          <NavLink href="/analise-mercado" label="Análise de Mercado"   icon={<IconAnalise />}    />
         </div>
 
         {/* Gestão de Compradores */}
@@ -239,10 +288,11 @@ export default function Sidebar({ userName, userEmail: _userEmail, role, onLogou
         {/* Gestão de Vendedores */}
         <div className={styles.sidebar__section}>
           <span className={styles['sidebar__section-title']}>Gestão de Vendedores</span>
-          <NavLink href="/seller-pipeline"     label="Pipeline de Vendedores"    icon={<IconPipeline />} />
-          <NavLink href="/properties-kanban"   label="Kanban de Imóveis"         icon={<IconKanban />}  />
-          <NavLink href="/properties"          label="Minha Carteira de Imóveis" icon={<IconHome />}    />
-          <NavLink href="/adjustments"         label="Reajustes"                 icon={<IconAdjust />}  />
+          <NavLink href="/seller-pipeline"   label="Pipeline de Vendedores"    icon={<IconPipeline />}  />
+          <NavLink href="/properties-kanban" label="Kanban de Imóveis"         icon={<IconKanban />}    />
+          <NavLink href="/properties"        label="Minha Carteira de Imóveis" icon={<IconHome />}      />
+          <NavLink href="/adjustments"       label="Reajustes"                 icon={<IconAdjust />}    />
+          <NavLink href="/fundo-marketing"   label="Fundo de Marketing"        icon={<IconMegaphone />} />
         </div>
 
       </nav>
@@ -256,7 +306,7 @@ export default function Sidebar({ userName, userEmail: _userEmail, role, onLogou
           <div className={styles['sidebar__user-info']}>
             <p className={styles['sidebar__user-name']}>{userName}</p>
             <p className={styles['sidebar__user-role']}>
-              {role === 'admin' ? 'Administrador' : role === 'gestor' ? 'Gestor' : 'Corretor'}
+              {role === 'gestor_trafego' ? 'Gestor de Tráfego' : role === 'admin' ? 'Administrador' : role === 'gestor' ? 'Gestor' : 'Corretor'}
             </p>
           </div>
           <button

@@ -214,13 +214,13 @@
   --btn-tertiary-text-hover:       var(--neutral-900);
 
   /* Sidebar específica */
-  --sidebar-background: var(--neutral-900);
-  --sidebar-text:       var(--neutral-400);
-  --sidebar-text-hover: #ffffff;
+  --sidebar-background:  #ffffff;
+  --sidebar-text:        #1F2937;
+  --sidebar-text-hover:  #2563EB;
   --sidebar-text-active: #ffffff;
-  --sidebar-item-hover:  rgba(255, 255, 255, 0.06);
-  --sidebar-item-active: var(--brand-600);
-  --sidebar-border:      rgba(255, 255, 255, 0.08);
+  --sidebar-item-hover:  #EFF6FF;
+  --sidebar-item-active: #2563EB;
+  --sidebar-border:      #E5E7EB;
 
   /* Topbar */
   --topbar-background: #ffffff;

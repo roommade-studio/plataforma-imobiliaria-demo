@@ -12,6 +12,12 @@
   gap:             var(--size-1);
 }
 
+.page__title__wrap {
+  display:     flex;
+  align-items: center;
+  gap:         var(--size-0-5);
+}
+
 .page__title {
   font-family:    var(--font-family-heading);
   font-size:      var(--font-size-h4);
@@ -21,17 +27,201 @@
   color:          var(--heading-main);
 }
 
-/* ─── Stats grid ──────────────────────────────────────────── */
-.stats {
+.page__beta {
+  display:        inline-flex;
+  align-items:    center;
+  padding:        0.125rem var(--size-0-5);
+  background:     var(--background-two);
+  border:         var(--border-regular) solid var(--border);
+  border-radius:  var(--radius-sm);
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-xs);
+  font-weight:    var(--weight-semibold);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-wide);
+  color:          var(--paragraph);
+  text-transform: uppercase;
+  align-self:     center;
+}
+
+/* ─── Status summary cards ────────────────────────────────── */
+.status__cards {
   display:               grid;
-  grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+  grid-template-columns: repeat(5, 1fr);
   gap:                   var(--size-1);
 }
 
+.status__card {
+  display:       flex;
+  align-items:   center;
+  gap:           var(--size-0-75);
+  padding:       var(--size-1) var(--size-1);
+  background:    var(--card-background);
+  border:        var(--border-regular) solid var(--card-border);
+  border-radius: var(--radius-lg);
+  cursor:        pointer;
+  text-align:    left;
+}
+.status__card:hover         { border-color: var(--heading-main); }
+.status__card--selected     { border-color: var(--heading-main); box-shadow: 0 0 0 1px var(--heading-main); }
+
+/* Icon container */
+.status__card__icon {
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  width:           var(--size-2);
+  height:          var(--size-2);
+  border-radius:   var(--radius-md);
+  flex-shrink:     0;
+}
+
+.status__card__icon--neutral {
+  background: var(--background-two);
+  color:      var(--paragraph);
+}
+
+.status__card__icon--amber {
+  background: var(--warning-50, #fffbeb);
+  color:      var(--warning-600, #d97706);
+}
+
+.status__card__icon--green {
+  background: var(--status-active-bg);
+  color:      var(--status-active-text);
+}
+
+.status__card__icon--teal {
+  background: var(--teal-50, #f0fdfa);
+  color:      var(--teal-600, #0d9488);
+}
+
+/* Card body text */
+.status__card__body {
+  display:        flex;
+  flex-direction: column;
+  min-width:      0;
+}
+
+.status__card__count {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-h4);
+  font-weight:    var(--weight-bold);
+  line-height:    var(--line-height-1);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--heading-main);
+}
+
+.status__card__label {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-xs);
+  font-weight:    var(--weight-regular);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--paragraph);
+  white-space:    nowrap;
+  overflow:       hidden;
+  text-overflow:  ellipsis;
+}
+
+/* ─── Type filter pills ───────────────────────────────────── */
+.type__pills {
+  display:   flex;
+  flex-wrap: wrap;
+  gap:       var(--size-0-5);
+}
+
+.type__pill {
+  display:        inline-flex;
+  align-items:    center;
+  padding:        var(--size-0-25) var(--size-0-75);
+  border-radius:  var(--radius-full);
+  border:         var(--border-regular) solid var(--border);
+  background:     transparent;
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-sm);
+  font-weight:    var(--weight-regular);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--paragraph);
+  cursor:         pointer;
+}
+.type__pill:hover { background: var(--background-two); color: var(--heading-main); }
+
+.type__pill--active {
+  background:   var(--heading-main);
+  border-color: var(--heading-main);
+  color:        var(--background-one);
+  font-weight:  var(--weight-semibold);
+}
+
+/* ─── Table toolbar ───────────────────────────────────────── */
+.table__toolbar {
+  display:               grid;
+  grid-template-columns: 1fr auto;
+  gap:                   var(--size-1);
+  margin-bottom:         var(--size-1);
+  align-items:           center;
+}
+
+.table__search {
+  position:    relative;
+  display:     flex;
+  align-items: center;
+}
+
+.table__search__icon {
+  position:      absolute;
+  left:          var(--size-0-75);
+  color:         var(--paragraph);
+  display:       flex;
+  align-items:   center;
+  pointer-events: none;
+}
+
+.table__search__input {
+  width:          100%;
+  padding:        var(--size-0-625, 0.625rem) var(--size-1) var(--size-0-625, 0.625rem) var(--size-2);
+  background:     var(--form-background);
+  border:         var(--border-regular) solid var(--form-border);
+  border-radius:  var(--radius-md);
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-sm);
+  font-weight:    var(--weight-regular);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--form-text);
+  outline:        none;
+  appearance:     none;
+}
+.table__search__input:focus         { border-color: var(--form-border-pressed); background: var(--form-background-pressed); }
+.table__search__input::placeholder  { color: var(--paragraph); opacity: 0.6; }
+
+.table__status__select {
+  padding:        var(--size-0-625, 0.625rem) var(--size-2) var(--size-0-625, 0.625rem) var(--size-0-75);
+  background:     var(--form-background);
+  border:         var(--border-regular) solid var(--form-border);
+  border-radius:  var(--radius-md);
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-sm);
+  font-weight:    var(--weight-regular);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--form-text);
+  outline:        none;
+  cursor:         pointer;
+  white-space:    nowrap;
+  appearance:     none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M3 4.5L6 7.5L9 4.5' stroke='%236b7280' stroke-width='1.25' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat:   no-repeat;
+  background-position: right var(--size-0-5) center;
+}
+.table__status__select:focus { border-color: var(--form-border-pressed); }
+
 /* ─── Table ───────────────────────────────────────────────── */
 .table-wrapper {
-  overflow-x:  auto;
-  margin-top:  var(--size-1);
+  overflow-x: auto;
+  margin-top: var(--size-1);
 }
 
 .table {
@@ -63,22 +253,16 @@
   border-bottom:  var(--border-regular) solid var(--card-border);
 }
 
-.table__row:last-child td {
-  border-bottom: none;
-}
+.table__row                       { cursor: pointer; }
+.table__row:last-child td         { border-bottom: none; }
+.table__row:hover td              { background-color: var(--card-background-hover); }
 
-.table__row:hover td {
-  background-color: var(--card-background-hover);
-}
-
-.td--primary {
-  font-weight: var(--weight-medium) !important;
-}
+.td--primary { font-weight: var(--weight-medium) !important; }
 
 .td--mono {
-  font-family:      var(--font-family-mono) !important;
-  font-size:        var(--font-size-text-xs) !important;
-  color:            var(--paragraph) !important;
+  font-family: var(--font-family-mono) !important;
+  font-size:   var(--font-size-text-xs) !important;
+  color:       var(--paragraph) !important;
 }
 
 .td--number {
@@ -106,25 +290,17 @@
   white-space:    nowrap;
 }
 
-.badge--green {
-  background-color: var(--status-active-bg);
-  color:            var(--status-active-text);
-}
+/* Status badges */
+.badge--gray   { background-color: var(--status-inactive-bg);    color: var(--status-inactive-text);   }
+.badge--yellow { background-color: var(--status-pending-bg);     color: var(--status-pending-text);    }
+.badge--orange { background-color: var(--warning-50, #fff7ed);   color: var(--warning-700, #c2410c);   }
+.badge--green  { background-color: var(--status-active-bg);      color: var(--status-active-text);     }
+.badge--teal   { background-color: var(--teal-50, #f0fdfa);      color: var(--teal-700, #0f766e);      }
 
-.badge--yellow {
-  background-color: var(--status-pending-bg);
-  color:            var(--status-pending-text);
-}
-
-.badge--red {
-  background-color: var(--status-cancelled-bg);
-  color:            var(--status-cancelled-text);
-}
-
-.badge--gray {
-  background-color: var(--status-inactive-bg);
-  color:            var(--status-inactive-text);
-}
+/* Type badges */
+.badge--blue   { background-color: var(--info-50, #eff6ff);      color: var(--info-700, #1d4ed8);      }
+.badge--indigo { background-color: var(--indigo-50, #eef2ff);    color: var(--indigo-700, #4338ca);    }
+.badge--purple { background-color: var(--brand-50, #f5f3ff);     color: var(--brand-700, #6d28d9);     }
 
 /* ─── Modal form ──────────────────────────────────────────── */
 .form {
@@ -146,6 +322,21 @@
 }
 
 /* ─── Responsive ──────────────────────────────────────────── */
+@media (max-width: 64rem) {
+  .status__cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 48rem) {
+  .status__cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .table__toolbar {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 640px) {
   .form__row--2 {
     grid-template-columns: 1fr;

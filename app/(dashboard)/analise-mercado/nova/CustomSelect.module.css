@@ -1,0 +1,120 @@
+/* ── Field wrapper ──────────────────────────────────────── */
+
+.field {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--size-0-25);
+  position:       relative;
+}
+
+/* ── Label — matches Input.module.css exactly ───────────── */
+
+.label {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-sm);
+  font-weight:    var(--weight-medium);
+  line-height:    var(--line-height-1-3);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--heading-main);
+}
+
+.req { color: var(--danger-500); }
+
+/* ── Trigger button — matches Input height / border ─────── */
+
+.trigger {
+  display:          flex;
+  align-items:      center;
+  justify-content:  space-between;
+  gap:              var(--size-0-5);
+  width:            100%;
+  height:           var(--size-2-5);
+  padding-inline:   var(--size-0-75);
+  border:           var(--border-regular) solid var(--form-border);
+  border-radius:    var(--radius-md);
+  background-color: var(--form-background);
+  cursor:           pointer;
+  outline:          none;
+  text-align:       left;
+}
+
+.trigger:hover {
+  background-color: var(--form-background-hover);
+  border-color:     var(--form-border-hover);
+}
+
+.trigger--open {
+  background-color: var(--form-background-pressed);
+  border-color:     var(--form-border-pressed);
+  box-shadow:       0 0 0 3px rgba(59, 110, 245, 0.12);
+}
+
+.trigger__text {
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-sm);
+  font-weight:    var(--weight-regular);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--form-text);
+  flex:           1;
+  overflow:       hidden;
+  text-overflow:  ellipsis;
+  white-space:    nowrap;
+}
+
+.trigger__text--empty { color: var(--neutral-400); }
+
+.chevron {
+  width:      var(--size-1);
+  height:     var(--size-1);
+  color:      var(--neutral-400);
+  flex-shrink: 0;
+  transition:  transform 0.15s ease;
+}
+
+.chevron--open { transform: rotate(180deg); }
+
+/* ── Dropdown list (rendered via portal, position:fixed set inline) ── */
+
+.list {
+  position:      fixed;
+  background:    var(--form-background);
+  border:        var(--border-regular) solid var(--form-border-pressed);
+  border-radius: var(--radius-md);
+  box-shadow:    0 var(--size-0-5) var(--size-1-5) rgba(0, 0, 0, 0.1),
+                 0 var(--size-0-25) var(--size-0-5) rgba(0, 0, 0, 0.06);
+  z-index:       9999;
+  padding:       var(--size-0-25) 0;
+  max-height:    15rem;
+  overflow-y:    auto;
+  list-style:    none;
+  margin:        0;
+}
+
+/* ── Options ────────────────────────────────────────────── */
+
+.option {
+  display:        flex;
+  align-items:    center;
+  justify-content: space-between;
+  gap:            var(--size-0-5);
+  padding:        var(--size-0-5) var(--size-0-75);
+  cursor:         pointer;
+  font-family:    var(--font-family-sans);
+  font-size:      var(--font-size-text-sm);
+  font-weight:    var(--weight-regular);
+  line-height:    var(--line-height-1-5);
+  letter-spacing: var(--letter-spacing-normal);
+  color:          var(--form-text);
+}
+
+.option:hover                           { background: var(--info-50, #eff6ff); }
+.option--active                         { background: var(--info-50, #eff6ff); color: var(--info-700, #1d4ed8); font-weight: var(--weight-medium); }
+.option--active:hover                   { background: var(--info-50, #eff6ff); }
+
+.check {
+  width:       var(--size-0-75);
+  height:      var(--size-0-75);
+  color:       var(--info-700, #1d4ed8);
+  flex-shrink: 0;
+}

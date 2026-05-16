@@ -49,6 +49,44 @@ function statusBadgeClass(status: PropStatus): string {
   }
 }
 
+function IconBuilding() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="3" width="18" height="18" rx="2" />
+      <path d="M9 3v18" />
+      <path d="M3 9h6" />
+      <path d="M3 15h6" />
+      <path d="M15 9h3" />
+      <path d="M15 15h3" />
+    </svg>
+  )
+}
+function IconCheck() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="20 6 9 17 4 12" />
+    </svg>
+  )
+}
+function IconClock() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10" />
+      <polyline points="12 6 12 12 16 14" />
+    </svg>
+  )
+}
+function IconArrows() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="17 1 21 5 17 9" />
+      <path d="M3 11V9a4 4 0 0 1 4-4h14" />
+      <polyline points="7 23 3 19 7 15" />
+      <path d="M21 13v2a4 4 0 0 1-4 4H3" />
+    </svg>
+  )
+}
+
 function BedIcon() {
   return (
     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -149,10 +187,10 @@ export default function PropertiesPage() {
 
         {/* Stats */}
         <div className={styles.stats}>
-          <StatCard label="Total de Imóveis"  value={18} />
-          <StatCard label="Disponíveis"        value={12} trend={6.5} trendLabel="vs. mês anterior" />
-          <StatCard label="Reservados"         value={3}  />
-          <StatCard label="Em Negociação"      value={3}  />
+          <StatCard label="Total de Imóveis" value={18}                                          icon={<IconBuilding />} />
+          <StatCard label="Disponíveis"      value={12} trend={6.5} trendLabel="vs. mês anterior" icon={<IconCheck />} />
+          <StatCard label="Reservados"       value={3}                                             icon={<IconClock />} />
+          <StatCard label="Em Negociação"    value={3}                                             icon={<IconArrows />} />
         </div>
 
         {/* Filters */}

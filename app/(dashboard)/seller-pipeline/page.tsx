@@ -9,6 +9,43 @@ import Input, { Select } from '@/components/ui/Input'
 import KanbanBoard, { type KanbanItem, type KanbanColumnDef } from '@/components/kanban/KanbanBoard'
 import styles from './page.module.css'
 
+/* ── Icons ───────────────────────────────────────────────── */
+
+function IconHome() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+      <polyline points="9 22 9 12 15 12 15 22" />
+    </svg>
+  )
+}
+function IconSearch() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="11" cy="11" r="8" />
+      <line x1="21" y1="21" x2="16.65" y2="16.65" />
+    </svg>
+  )
+}
+function IconFileCheck() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+      <polyline points="14 2 14 8 20 8" />
+      <polyline points="9 15 11 17 15 13" />
+    </svg>
+  )
+}
+function IconXCircle() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10" />
+      <line x1="15" y1="9" x2="9" y2="15" />
+      <line x1="9" y1="9" x2="15" y2="15" />
+    </svg>
+  )
+}
+
 /* ── Columns ─────────────────────────────────────────────── */
 
 const COLUMNS: KanbanColumnDef[] = [
@@ -254,18 +291,21 @@ export default function SellerPipelinePage() {
             value={captacoesAtivas}
             trend={15.0}
             trendLabel="vs. mês anterior"
+            icon={<IconHome />}
           />
           <StatCard
             label="Em Avaliação (ACM)"
             value={emAvaliacao}
             trend={-5.5}
             trendLabel="vs. mês anterior"
+            icon={<IconSearch />}
           />
           <StatCard
             label="Gestão Assinada"
             value={gestaoAssinada}
             trend={20.0}
             trendLabel="vs. mês anterior"
+            icon={<IconFileCheck />}
           />
           <StatCard
             label="Perdidos no Mês"
@@ -273,6 +313,7 @@ export default function SellerPipelinePage() {
             trend={-10.0}
             trendLabel="vs. mês anterior"
             variant="accent"
+            icon={<IconXCircle />}
           />
         </div>
 
