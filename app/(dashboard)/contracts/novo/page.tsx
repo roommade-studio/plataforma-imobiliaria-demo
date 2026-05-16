@@ -2910,6 +2910,256 @@ function StepPlaceholder({ stepNum }: { stepNum: number }) {
   )
 }
 
+/* ─── Icon PDF ───────────────────────────────────────────── */
+
+function IconPdf() {
+  return (
+    <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+      <rect x="1.5" y="1.5" width="8" height="11" rx="1" stroke="currentColor" strokeWidth="1.2"/>
+      <path d="M4 4h4M4 6.5h4M4 9h2.5" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
+      <path d="M9.5 9l2 2m0-2-2 2" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round"/>
+    </svg>
+  )
+}
+
+/* ─── Minuta — PDF HTML builder ──────────────────────────── */
+
+function buildMinutaPdf(
+  step1:          Step1Data,
+  vendors:        VendedorData[],
+  compradores:    CompradorData[],
+  anuentes:       AnuenteData[],
+  imovel:         ImovelData,
+  precoPagamento: PrecoPagamentoData,
+  corretagem:     CorretagemData,
+  step8:          Step8Data,
+): string {
+  const today     = new Date().toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' })
+  const tipo      = step1.tipoContrato || 'Compra e Venda de Imóvel'
+  const valorBase = parseFloat(precoPagamento.valorTotal) || 0
+  const pctNum    = parseFloat(corretagem.percentualComissao) || 6
+  const commVal   = corretagem.modoManual ? (parseFloat(corretagem.valorManual) || 0) : (pctNum / 100) * valorBase
+
+  function qualif(p: VendedorData | CompradorData): string {
+    return [
+      p.nome || '____________',
+      p.nacionalidade,
+      p.estadoCivil,
+      p.profissao,
+      p.cpf    ? `CPF nº ${p.cpf}` : '',
+      p.rg     ? `RG nº ${p.rg}/${p.orgaoExpedidor}` : '',
+      [p.rua, p.numero, p.complemento, p.bairro, p.cidade, p.estado].filter(Boolean).length
+        ? `domiciliado(a) em ${[p.rua, p.numero, p.complemento, p.bairro, p.cidade, p.estado].filter(Boolean).join(', ')}`
+        : '',
+    ].filter(Boolean).join(', ')
+  }
+
+  const vendRow  = vendors.map((v, i) => `<p><strong>${vendors.length > 1 ? `VENDEDOR ${i + 1}` : 'VENDEDOR'}:</strong> ${qualif(v)}.</p>`).join('')
+  const compRow  = compradores.map((c, i) => `<p><strong>${compradores.length > 1 ? `COMPRADOR ${i + 1}` : 'COMPRADOR'}:</strong> ${qualif(c)}.</p>`).join('')
+  const anuRow   = anuentes.map((a, i) => `<p><strong>${anuentes.length > 1 ? `ANUENTE ${i + 1}` : 'ANUENTE'}:</strong> ${a.nome || '____________'}${a.cpf ? `, CPF nº ${a.cpf}` : ''}.</p>`).join('')
+  const imovelStr = [imovel.rua, imovel.numero, imovel.complemento, imovel.bairro, imovel.cidade, imovel.estado].filter(Boolean).join(', ') || '____________'
+  const pagRow   = precoPagamento.pagamentos.map((p, i) => `<li>${p.tipo || `Parcela ${i + 1}`}: <strong>${fmtBRL(p.valor)}</strong> — ${p.dataPag || 'data a definir'}${p.descricao ? ` (${p.descricao})` : ''}.</li>`).join('') || '<li>Condições a definir.</li>'
+  const despesas = [step8.escrituraComprador && 'escritura', step8.itbiComprador && 'ITBI', step8.certidoesComprador && 'certidões'].filter(Boolean).join(', ') || 'a definir'
+
+  return `<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><title>Minuta — ${tipo}</title>
+<style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Times New Roman',serif;font-size:12pt;color:#000;padding:2cm;line-height:1.7}h1{text-align:center;font-size:14pt;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.6cm}h2{font-size:12pt;text-transform:uppercase;margin-top:.9cm;margin-bottom:.3cm;border-bottom:1pt solid #000;padding-bottom:.1cm}p{margin-bottom:.3cm;text-align:justify}.center{text-align:center}ul{margin:.2cm 0 .4cm 1cm}li{margin-bottom:.15cm}.sigs{margin-top:1.5cm;display:flex;justify-content:space-between}.sig{text-align:center;width:44%}.sig__line{border-top:1pt solid #000;margin-bottom:.15cm}@media print{body{padding:1.5cm}}</style>
+</head><body>
+<h1>Contrato Particular de ${tipo}</h1>
+<p class="center">Minuta · ${today} · Unidade: ${step1.unidade || '—'}</p>
+<p>Pelo presente instrumento particular, as partes abaixo qualificadas têm entre si, por si e seus sucessores, contratado o seguinte:</p>
+<h2>Cláusula I — Das Partes</h2>${vendRow}${compRow}${anuRow}
+<h2>Cláusula II — Do Objeto</h2>
+<p>O imóvel objeto do presente contrato está localizado em <strong>${imovelStr}</strong>${imovel.cep ? `, CEP ${imovel.cep}` : ''}${imovel.matriculaNum ? `, Matrícula nº ${imovel.matriculaNum}${imovel.cartorio ? ` — ${imovel.cartorio}` : ''}` : ''}${imovel.areaTotal && imovel.areaTotal !== '0.00' ? `, área total ${imovel.areaTotal} m²` : ''}.</p>
+${imovel.ocupadoTerceiros ? '<p>O imóvel encontra-se ocupado por terceiros, comprometendo-se o Vendedor à desocupação até a lavratura da Escritura.</p>' : ''}
+${imovel.saldoDevedor ? '<p>O imóvel possui saldo devedor de financiamento, cuja quitação é de responsabilidade do Vendedor.</p>' : ''}
+<h2>Cláusula III — Do Preço e da Forma de Pagamento</h2>
+<p>O preço total é de <strong>${fmtBRL(precoPagamento.valorTotal || '0')}</strong>, a ser pago da seguinte forma:</p><ul>${pagRow}</ul>
+<p>Entrega das chaves: ${precoPagamento.entregaChaves}.</p>
+<h2>Cláusula IV — Da Corretagem</h2>
+<p>A comissão de corretagem é de <strong>${fmtPct(corretagem.percentualComissao)}</strong> sobre o valor total (${fmtBRL(commVal.toFixed(2))}).${corretagem.nomeCorretor ? ` Corretor: ${corretagem.nomeCorretor}${corretagem.creci ? ` — CRECI ${corretagem.creci}` : ''}.` : ''}</p>
+<h2>Cláusula V — Das Penalidades</h2>
+<p>Em caso de descumprimento: multa de <strong>${fmtPct(step8.multaContratual)}</strong>, juros de mora de <strong>${fmtPct(step8.jurosMora)}</strong>/mês e correção pelo <strong>${step8.indiceCorrecao}</strong>.</p>
+<h2>Cláusula VI — Da Escritura Definitiva</h2>
+<p>As partes lavrarão a Escritura Pública no prazo de <strong>${step8.prazoLavratura} dias</strong> a contar de: <strong>${step8.aContarDe}</strong>.</p>
+<p>Despesas de responsabilidade do Comprador: ${despesas}.</p>
+${step8.observacoes ? `<h2>Cláusula VII — Das Disposições Gerais</h2><p>${step8.observacoes}</p>` : ''}
+<p style="margin-top:1cm">Por estarem assim justos e contratados, firmam o presente instrumento em 02 (duas) vias.</p>
+<p class="center">${imovel.cidade ? `${imovel.cidade}/${imovel.estado}, ` : ''}${today}</p>
+<div class="sigs"><div class="sig"><div class="sig__line"></div><p>${vendors[0]?.nome || 'VENDEDOR'}</p></div><div class="sig"><div class="sig__line"></div><p>${compradores[0]?.nome || 'COMPRADOR'}</p></div></div>
+<div class="sigs" style="margin-top:1cm"><div class="sig"><div class="sig__line"></div><p>Testemunha 1</p></div><div class="sig"><div class="sig__line"></div><p>Testemunha 2</p></div></div>
+</body></html>`
+}
+
+/* ─── Minuta Modal ────────────────────────────────────────── */
+
+function MinutaModal({
+  open, onClose, onPdf,
+  step1, vendors, compradores, anuentes, imovel, precoPagamento, corretagem, step8,
+}: {
+  open:           boolean
+  onClose:        () => void
+  onPdf:          () => void
+  step1:          Step1Data
+  vendors:        VendedorData[]
+  compradores:    CompradorData[]
+  anuentes:       AnuenteData[]
+  imovel:         ImovelData
+  precoPagamento: PrecoPagamentoData
+  corretagem:     CorretagemData
+  step8:          Step8Data
+}) {
+  if (!open) return null
+
+  const today     = new Date().toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' })
+  const tipo      = step1.tipoContrato || 'Compra e Venda'
+  const valorBase = parseFloat(precoPagamento.valorTotal) || 0
+  const pctNum    = parseFloat(corretagem.percentualComissao) || 6
+  const commVal   = corretagem.modoManual ? (parseFloat(corretagem.valorManual) || 0) : (pctNum / 100) * valorBase
+
+  function Party({ label, p }: { label: string; p: VendedorData | CompradorData }) {
+    const addr = [p.rua, p.numero, p.complemento, p.bairro, p.cidade, p.estado].filter(Boolean).join(', ')
+    return (
+      <div className={styles.minuta__party}>
+        <span className={styles.minuta__party__role}>{label}</span>
+        <p className={styles.minuta__party__name}>{p.nome || <em>Não informado</em>}</p>
+        {(p.nacionalidade || p.estadoCivil || p.profissao) && (
+          <p className={styles.minuta__party__detail}>{[p.nacionalidade, p.estadoCivil, p.profissao].filter(Boolean).join(' · ')}</p>
+        )}
+        {p.cpf  && <p className={styles.minuta__party__detail}>CPF: {p.cpf}{p.rg ? ` · RG: ${p.rg}/${p.orgaoExpedidor}` : ''}</p>}
+        {addr   && <p className={styles.minuta__party__detail}>{addr}</p>}
+      </div>
+    )
+  }
+
+  const despesas = [
+    step8.escrituraComprador && 'escritura',
+    step8.itbiComprador      && 'ITBI',
+    step8.certidoesComprador && 'certidões',
+  ].filter(Boolean).join(', ') || 'a definir'
+
+  return (
+    <div className={styles.minuta__overlay} role="dialog" aria-modal="true" aria-label="Minuta do contrato">
+      <div className={styles.minuta__dialog}>
+
+        {/* Header */}
+        <div className={styles.minuta__dialog__head}>
+          <div>
+            <h2 className={styles.minuta__dialog__title}>Minuta do Contrato</h2>
+            <p className={styles.minuta__dialog__sub}>{tipo} · {today}</p>
+          </div>
+          <div className={styles.minuta__dialog__headbtns}>
+            <Button variant="secondary" size="sm" onClick={onPdf}>
+              <span className={styles.btn__content}><IconPdf /> Gerar PDF</span>
+            </Button>
+            <button type="button" className={styles.minuta__close} onClick={onClose} aria-label="Fechar minuta">
+              <IconClose />
+            </button>
+          </div>
+        </div>
+
+        {/* Document body */}
+        <div className={styles.minuta__body}>
+          <div className={styles.minuta__doc}>
+            <h1 className={styles.minuta__title}>Contrato Particular de {tipo}</h1>
+            <p className={styles.minuta__intro}>
+              Pelo presente instrumento particular, as partes abaixo qualificadas têm entre si, por si e seus
+              sucessores, contratado o seguinte:
+            </p>
+
+            <h2 className={styles.minuta__clause}>Cláusula I — Das Partes</h2>
+            {vendors.map((v, i) => (
+              <Party key={v._id} label={vendors.length > 1 ? `VENDEDOR ${i + 1}` : 'VENDEDOR'} p={v} />
+            ))}
+            {compradores.map((c, i) => (
+              <Party key={c._id} label={compradores.length > 1 ? `COMPRADOR ${i + 1}` : 'COMPRADOR'} p={c} />
+            ))}
+            {anuentes.map((a, i) => (
+              <div key={a._id} className={styles.minuta__party}>
+                <span className={styles.minuta__party__role}>{anuentes.length > 1 ? `ANUENTE ${i + 1}` : 'ANUENTE'}</span>
+                <p className={styles.minuta__party__name}>{a.nome || <em>Não informado</em>}</p>
+                {a.cpf && <p className={styles.minuta__party__detail}>CPF: {a.cpf}</p>}
+              </div>
+            ))}
+
+            <h2 className={styles.minuta__clause}>Cláusula II — Do Objeto</h2>
+            <p className={styles.minuta__p}>
+              {imovel.rua ? (
+                <>O imóvel está localizado em <strong>{[imovel.rua, imovel.numero, imovel.complemento, imovel.bairro, imovel.cidade, imovel.estado].filter(Boolean).join(', ')}</strong>
+                {imovel.matriculaNum && <>, Matrícula nº <strong>{imovel.matriculaNum}</strong>{imovel.cartorio ? ` — ${imovel.cartorio}` : ''}</>}
+                {imovel.areaTotal && imovel.areaTotal !== '0.00' && <>, área total <strong>{imovel.areaTotal} m²</strong></>}.</>
+              ) : <em>Endereço do imóvel não preenchido.</em>}
+            </p>
+            {imovel.ocupadoTerceiros && <p className={styles.minuta__p}>O imóvel encontra-se ocupado por terceiros, comprometendo-se o Vendedor à desocupação na data acordada.</p>}
+            {imovel.saldoDevedor     && <p className={styles.minuta__p}>O imóvel possui saldo devedor, cuja quitação é de responsabilidade do Vendedor.</p>}
+
+            <h2 className={styles.minuta__clause}>Cláusula III — Do Preço e da Forma de Pagamento</h2>
+            <p className={styles.minuta__p}>O preço total é de <strong>{fmtBRL(precoPagamento.valorTotal || '0')}</strong>, pago da seguinte forma:</p>
+            {precoPagamento.pagamentos.length > 0 ? (
+              <ul className={styles.minuta__ul}>
+                {precoPagamento.pagamentos.map((p, i) => (
+                  <li key={p._id}>{p.tipo || `Parcela ${i + 1}`}: <strong>{fmtBRL(p.valor)}</strong> — {p.dataPag || 'a definir'}{p.descricao ? ` (${p.descricao})` : ''}.</li>
+                ))}
+              </ul>
+            ) : <p className={styles.minuta__p}><em>Condições de pagamento não definidas.</em></p>}
+            <p className={styles.minuta__p}>Entrega das chaves: {precoPagamento.entregaChaves}.</p>
+
+            <h2 className={styles.minuta__clause}>Cláusula IV — Da Corretagem</h2>
+            <p className={styles.minuta__p}>
+              A comissão de corretagem é de <strong>{fmtPct(corretagem.percentualComissao)}</strong>, equivalente a{' '}
+              <strong>{fmtBRL(commVal.toFixed(2))}</strong>.
+              {corretagem.nomeCorretor && <> Corretor: {corretagem.nomeCorretor}{corretagem.creci ? ` (CRECI ${corretagem.creci})` : ''}.</>}
+            </p>
+
+            <h2 className={styles.minuta__clause}>Cláusula V — Das Penalidades</h2>
+            <p className={styles.minuta__p}>
+              Descumprimento sujeita a parte infratora à multa de <strong>{fmtPct(step8.multaContratual)}</strong>,
+              juros de <strong>{fmtPct(step8.jurosMora)}</strong>/mês e correção pelo <strong>{step8.indiceCorrecao}</strong>.
+            </p>
+
+            <h2 className={styles.minuta__clause}>Cláusula VI — Da Escritura Definitiva</h2>
+            <p className={styles.minuta__p}>
+              Escritura Pública a ser lavrada em <strong>{step8.prazoLavratura} dias</strong> a
+              contar de <strong>{step8.aContarDe}</strong>.
+              Despesas de responsabilidade do Comprador: {despesas}.
+            </p>
+
+            {step8.observacoes && (
+              <>
+                <h2 className={styles.minuta__clause}>Cláusula VII — Das Disposições Gerais</h2>
+                <p className={styles.minuta__p}>{step8.observacoes}</p>
+              </>
+            )}
+
+            <div className={styles.minuta__sigs}>
+              <p className={styles.minuta__sigs__city}>{imovel.cidade ? `${imovel.cidade}/${imovel.estado}, ` : ''}{today}</p>
+              <div className={styles.minuta__sigs__row}>
+                <div className={styles.minuta__sig}>
+                  <div className={styles.minuta__sig__line} />
+                  <p>{vendors[0]?.nome || 'Vendedor'}</p>
+                </div>
+                <div className={styles.minuta__sig}>
+                  <div className={styles.minuta__sig__line} />
+                  <p>{compradores[0]?.nome || 'Comprador'}</p>
+                </div>
+              </div>
+              <div className={styles.minuta__sigs__row}>
+                <div className={styles.minuta__sig}>
+                  <div className={styles.minuta__sig__line} />
+                  <p>Testemunha 1</p>
+                </div>
+                <div className={styles.minuta__sig}>
+                  <div className={styles.minuta__sig__line} />
+                  <p>Testemunha 2</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 /* ─── Toast ──────────────────────────────────────────────── */
 
 function Toast({ onClose }: { onClose: () => void }) {
@@ -2992,6 +3242,41 @@ export default function NovoContratoPage() {
   const [corretagem, setCorretagem] = useState<CorretagemData>(createCorretagem())
 
   const [step8Data, setStep8Data] = useState<Step8Data>(createStep8Data())
+
+  const [minutaOpen, setMinutaOpen] = useState(false)
+
+  function handleVisualizarMinuta() {
+    setMinutaOpen(true)
+  }
+
+  function handleGerarPdf() {
+    const html = buildMinutaPdf(step1Data, vendors, compradores, anuentes, imovel, precoPagamento, corretagem, step8Data)
+    const w = window.open('', '_blank')
+    if (!w) return
+    w.document.write(html)
+    w.document.close()
+    w.focus()
+    w.print()
+  }
+
+  function handleEnviarRevisao() {
+    const id = `CT-${Date.now()}`
+    const contrato = {
+      id,
+      numero: id,
+      status: 'aguardando_revisao',
+      tipo: step1Data.tipoContrato || 'Contrato',
+      compradores: compradores.map(c => c.nome).filter(Boolean).join(', ') || 'Não informado',
+      vendedores: vendors.map(v => v.nome).filter(Boolean).join(', ') || 'Não informado',
+      imovel: [imovel.rua, imovel.numero, imovel.bairro].filter(Boolean).join(', ') || 'Não informado',
+      valor: precoPagamento.valorTotal || '0',
+      dataCriacao: new Date().toISOString(),
+      corretor: step1Data.corretor,
+    }
+    const existing = JSON.parse(localStorage.getItem('contratos') || '[]')
+    localStorage.setItem('contratos', JSON.stringify([contrato, ...existing]))
+    router.push('/contracts?tab=aguardando_revisao')
+  }
 
   function goNext() {
     setCurrentStep(s => Math.min(STEPS.length, s + 1))
@@ -3121,13 +3406,13 @@ export default function NovoContratoPage() {
                   Salvar Rascunho
                 </span>
               </Button>
-              <Button variant="secondary" size="sm" onClick={() => {}}>
+              <Button variant="secondary" size="sm" onClick={handleVisualizarMinuta}>
                 <span className={styles.btn__content}>
                   <IconDoc />
                   Visualizar Minuta
                 </span>
               </Button>
-              <Button variant="primary" size="sm" onClick={() => {}}>
+              <Button variant="primary" size="sm" onClick={handleEnviarRevisao}>
                 <span className={styles.btn__content}>
                   <IconSend />
                   Enviar para Revisão Jurídica
@@ -3162,6 +3447,21 @@ export default function NovoContratoPage() {
       {currentStep >= 2 && showToast && (
         <Toast onClose={() => setShowToast(false)} />
       )}
+
+      {/* ── Minuta modal ── */}
+      <MinutaModal
+        open={minutaOpen}
+        onClose={() => setMinutaOpen(false)}
+        onPdf={handleGerarPdf}
+        step1={step1Data}
+        vendors={vendors}
+        compradores={compradores}
+        anuentes={anuentes}
+        imovel={imovel}
+        precoPagamento={precoPagamento}
+        corretagem={corretagem}
+        step8={step8Data}
+      />
     </>
   )
 }

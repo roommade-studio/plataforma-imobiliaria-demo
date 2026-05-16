@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import Button from '@/components/ui/Button'
@@ -52,6 +52,14 @@ const MOCK_CONTRACTS: Contract[] = [
 const ALL_STATUSES: ContractStatus[] = [
   'Rascunho', 'Aguardando Revisão', 'Ajustes Solicitados', 'Aprovado', 'Assinado',
 ]
+
+const STATUS_SLUG_MAP: Record<string, ContractStatus> = {
+  aguardando_revisao:   'Aguardando Revisão',
+  rascunho:             'Rascunho',
+  ajustes_solicitados:  'Ajustes Solicitados',
+  aprovado:             'Aprovado',
+  assinado:             'Assinado',
+}
 
 /* ─── Badge helpers ──────────────────────────────────────── */
 
@@ -179,6 +187,33 @@ export default function ContractsPage() {
   const [search,       setSearch]       = useState('')
   const [modalOpen,    setModalOpen]    = useState(false)
   const [formTipo,     setFormTipo]     = useState<ContractTipo>('gestao')
+  const [localContracts, setLocalContracts] = useState<Contract[]>([])
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const tabParam = params.get('tab')
+    if (tabParam && STATUS_SLUG_MAP[tabParam]) {
+      setActiveStatus(STATUS_SLUG_MAP[tabParam])
+    }
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const raw: any[] = JSON.parse(localStorage.getItem('contratos') || '[]')
+      const mapped: Contract[] = raw.map(c => ({
+        id:       c.id ?? `ls-${Math.random()}`,
+        numero:   c.numero ?? c.id,
+        tipo:     (c.tipo ?? '').toLowerCase().includes('gestão') || (c.tipo ?? '').toLowerCase().includes('gestao') ? 'gestao' : 'compra-venda',
+        imovel:   c.imovel ?? '',
+        corretor: c.corretor ?? '',
+        partes:   [c.vendedores, c.compradores].filter(Boolean).join(' / '),
+        valor:    c.valor ? `R$ ${Number(c.valor).toLocaleString('pt-BR')}` : '',
+        inicio:   c.dataCriacao ? new Date(c.dataCriacao).toLocaleDateString('pt-BR') : '',
+        status:   STATUS_SLUG_MAP[c.status] ?? 'Aguardando Revisão',
+      }))
+      setLocalContracts(mapped)
+    } catch { /* ignore */ }
+  }, [])
+
+  const allContracts = [...localContracts, ...MOCK_CONTRACTS]
 
   const [fImovel, setFImovel] = useState('')
   const [fParteA, setFParteA] = useState('')
@@ -195,7 +230,7 @@ export default function ContractsPage() {
     setFValor(''); setFInicio(''); setFFim(''); setFObs('')
   }
 
-  const filtered = MOCK_CONTRACTS
+  const filtered = allContracts
     .filter(c => activeStatus === 'todos' || c.status === activeStatus)
     .filter(c => {
       if (filterTipo === 'todos') return true
@@ -229,7 +264,7 @@ export default function ContractsPage() {
         <div className={styles.status__cards}>
           {ALL_STATUSES.map(s => {
             const meta  = STATUS_CARD_META[s]
-            const count = MOCK_CONTRACTS.filter(c => c.status === s).length
+            const count = allContracts.filter(c => c.status === s).length
             const isActive = activeStatus === s
             return (
               <button
