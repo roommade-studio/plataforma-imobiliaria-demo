@@ -266,6 +266,7 @@ export default function Sidebar({ userName, userEmail: _userEmail, role, onLogou
           <span className={styles['sidebar__section-title']}>Meu Negócio</span>
           <NavLink href="/dashboard"    label="Meu Dashboard"      icon={<IconDashboard />} />
           <NavLink href="/metrics"      label="Planejamento"       icon={<IconChartBar />}  />
+          <NavLink href="/comissoes"    label="Minhas Comissões"   icon={<IconSales />}     />
           <NavLink href="/mentoria"     label="Minha Performance"  icon={<IconMentor />}    />
           <NavLink href="/fluxo-caixa"  label="Fluxo de Caixa"    icon={<IconCashFlow />}  />
         </div>

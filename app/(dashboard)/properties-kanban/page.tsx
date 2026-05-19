@@ -236,6 +236,45 @@ export default function PropertiesKanbanPage() {
     )
   }
 
+  /* Detail modal */
+  const [detailItemId, setDetailItemId] = useState<string | null>(null)
+  const [detailForm, setDetailForm] = useState({
+    endereco: '', tipo: '', valor: '', area: '', dormitorios: '', columnId: '',
+  })
+
+  function openDetail(item: KanbanItem) {
+    setDetailItemId(item.id)
+    const valorLabel = item.meta?.find((m) => m.label.startsWith('Valor'))
+    setDetailForm({
+      endereco:    item.title,
+      tipo:        item.subtitle ?? '',
+      valor:       valorLabel?.value ?? '',
+      area:        (item.meta?.find((m) => m.label === 'Área')?.value ?? '').replace(/\s*m²$/, ''),
+      dormitorios: item.meta?.find((m) => m.label === 'Dormitórios')?.value ?? '',
+      columnId:    item.columnId,
+    })
+  }
+
+  function saveDetail() {
+    if (!detailItemId) return
+    setItems((prev) => prev.map((i) => {
+      if (i.id !== detailItemId) return i
+      const valorLabel = i.meta?.find((m) => m.label.startsWith('Valor'))?.label ?? 'Valor'
+      return {
+        ...i,
+        title:    detailForm.endereco,
+        subtitle: detailForm.tipo,
+        columnId: detailForm.columnId,
+        meta: [
+          { label: valorLabel,    value: detailForm.valor       || '—' },
+          { label: 'Área',        value: detailForm.area ? `${detailForm.area} m²` : '—' },
+          { label: 'Dormitórios', value: detailForm.dormitorios || '—' },
+        ],
+      }
+    }))
+    setDetailItemId(null)
+  }
+
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     const newItem: KanbanItem = {
@@ -320,9 +359,77 @@ export default function PropertiesKanbanPage() {
             columns={COLUMNS}
             items={items}
             onMove={handleMove}
+            onItemClick={openDetail}
           />
         </div>
       </div>
+
+      {/* Modal: Detalhes / Editar Imóvel */}
+      <Modal
+        isOpen={detailItemId !== null}
+        onClose={() => setDetailItemId(null)}
+        title="Detalhes do Imóvel"
+        footer={
+          <div className={styles.modal__actions}>
+            <Button variant="secondary" size="sm" onClick={() => setDetailItemId(null)}>
+              Cancelar
+            </Button>
+            <Button variant="primary" size="sm" onClick={saveDetail}>
+              Salvar Alterações
+            </Button>
+          </div>
+        }
+      >
+        <form className={styles.form} onSubmit={(e) => { e.preventDefault(); saveDetail() }}>
+          <Input
+            label="Endereço"
+            value={detailForm.endereco}
+            onChange={(e) => setDetailForm((p) => ({ ...p, endereco: e.target.value }))}
+            required
+          />
+          <Select
+            label="Tipo"
+            value={detailForm.tipo}
+            onChange={(e) => setDetailForm((p) => ({ ...p, tipo: e.target.value }))}
+          >
+            <option value="">Selecione...</option>
+            <option value="Apartamento">Apartamento</option>
+            <option value="Casa">Casa</option>
+            <option value="Cobertura">Cobertura</option>
+            <option value="Terreno">Terreno</option>
+            <option value="Sala comercial">Sala comercial</option>
+            <option value="Galpão">Galpão</option>
+          </Select>
+          <Select
+            label="Etapa"
+            value={detailForm.columnId}
+            onChange={(e) => setDetailForm((p) => ({ ...p, columnId: e.target.value }))}
+          >
+            {COLUMNS.map((c) => (
+              <option key={c.id} value={c.id}>{c.title}</option>
+            ))}
+          </Select>
+          <Input
+            label="Valor"
+            value={detailForm.valor}
+            onChange={(e) => setDetailForm((p) => ({ ...p, valor: e.target.value }))}
+          />
+          <div className={styles.form__row}>
+            <Input
+              label="Área (m²)"
+              type="number"
+              value={detailForm.area}
+              onChange={(e) => setDetailForm((p) => ({ ...p, area: e.target.value }))}
+            />
+            <Input
+              label="Dormitórios"
+              type="number"
+              value={detailForm.dormitorios}
+              onChange={(e) => setDetailForm((p) => ({ ...p, dormitorios: e.target.value }))}
+            />
+          </div>
+        </form>
+      </Modal>
 
       {/* Modal: Adicionar Imóvel */}
       <Modal

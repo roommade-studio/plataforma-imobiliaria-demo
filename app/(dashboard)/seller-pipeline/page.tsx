@@ -219,6 +219,40 @@ export default function SellerPipelinePage() {
   const [pendingTargetCol, setPendingTargetCol] = useState<string>('')
   const [isPropertyModalOpen, setIsPropertyModalOpen] = useState(false)
 
+  /* Detail modal */
+  const [detailItemId, setDetailItemId] = useState<string | null>(null)
+  const [detailForm, setDetailForm] = useState({
+    title: '', subtitle: '', tipo: '', valorPretendido: '', area: '', columnId: '',
+  })
+
+  function openDetail(item: KanbanItem) {
+    setDetailItemId(item.id)
+    setDetailForm({
+      title:           item.title,
+      subtitle:        item.subtitle ?? '',
+      tipo:            item.meta?.find((m) => m.label === 'Tipo')?.value ?? '',
+      valorPretendido: item.meta?.find((m) => m.label === 'Valor pretendido')?.value ?? '',
+      area:            (item.meta?.find((m) => m.label === 'Área')?.value ?? '').replace(/\s*m²$/, ''),
+      columnId:        item.columnId,
+    })
+  }
+
+  function saveDetail() {
+    if (!detailItemId) return
+    setItems((prev) => prev.map((i) => i.id !== detailItemId ? i : {
+      ...i,
+      title:    detailForm.title,
+      subtitle: detailForm.subtitle,
+      columnId: detailForm.columnId,
+      meta: [
+        { label: 'Valor pretendido', value: detailForm.valorPretendido || '—' },
+        { label: 'Tipo',             value: detailForm.tipo            || '—' },
+        { label: 'Área',             value: detailForm.area ? `${detailForm.area} m²` : '—' },
+      ],
+    }))
+    setDetailItemId(null)
+  }
+
   function handleMove(itemId: string, targetColumnId: string) {
     const item = items.find((i) => i.id === itemId)
     if (targetColumnId === 'gestao-assinada' && item && item.columnId !== 'gestao-assinada') {
@@ -323,6 +357,7 @@ export default function SellerPipelinePage() {
             columns={COLUMNS}
             items={items}
             onMove={handleMove}
+            onItemClick={openDetail}
           />
         </div>
       </div>
@@ -382,6 +417,70 @@ export default function SellerPipelinePage() {
             type="number"
             value={form.area}
             onChange={(e) => setForm((p) => ({ ...p, area: e.target.value }))}
+          />
+        </form>
+      </Modal>
+
+      {/* ── Modal: Detalhes / Editar Captação ── */}
+      <Modal
+        isOpen={detailItemId !== null}
+        onClose={() => setDetailItemId(null)}
+        title="Detalhes da Captação"
+        footer={
+          <div className={styles.modal__actions}>
+            <Button variant="secondary" size="sm" onClick={() => setDetailItemId(null)}>
+              Cancelar
+            </Button>
+            <Button variant="primary" size="sm" onClick={saveDetail}>
+              Salvar Alterações
+            </Button>
+          </div>
+        }
+      >
+        <form className={styles.form} onSubmit={(e) => { e.preventDefault(); saveDetail() }}>
+          <Input
+            label="Nome do vendedor"
+            value={detailForm.title}
+            onChange={(e) => setDetailForm((p) => ({ ...p, title: e.target.value }))}
+            required
+          />
+          <Input
+            label="Endereço do imóvel"
+            value={detailForm.subtitle}
+            onChange={(e) => setDetailForm((p) => ({ ...p, subtitle: e.target.value }))}
+          />
+          <Select
+            label="Etapa do funil"
+            value={detailForm.columnId}
+            onChange={(e) => setDetailForm((p) => ({ ...p, columnId: e.target.value }))}
+          >
+            {COLUMNS.map((c) => (
+              <option key={c.id} value={c.id}>{c.title}</option>
+            ))}
+          </Select>
+          <Select
+            label="Tipo de imóvel"
+            value={detailForm.tipo}
+            onChange={(e) => setDetailForm((p) => ({ ...p, tipo: e.target.value }))}
+          >
+            <option value="">Selecione...</option>
+            <option value="Apartamento">Apartamento</option>
+            <option value="Casa">Casa</option>
+            <option value="Cobertura">Cobertura</option>
+            <option value="Sala comercial">Sala comercial</option>
+            <option value="Terreno">Terreno</option>
+            <option value="Galpão">Galpão</option>
+          </Select>
+          <Input
+            label="Valor pretendido"
+            value={detailForm.valorPretendido}
+            onChange={(e) => setDetailForm((p) => ({ ...p, valorPretendido: e.target.value }))}
+          />
+          <Input
+            label="Área (m²)"
+            type="number"
+            value={detailForm.area}
+            onChange={(e) => setDetailForm((p) => ({ ...p, area: e.target.value }))}
           />
         </form>
       </Modal>
