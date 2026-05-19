@@ -4,7 +4,7 @@
   align-items:    stretch;
 }
 
-/* "SISTEMA" — small label spanning the full width of PRIORIDADE */
+/* "SISTEMA" — small label spanning the full width of DEMO */
 .logo__label {
   font-family:     var(--font-family-sans);
   font-size:       var(--font-size-text-xs);
@@ -18,7 +18,7 @@
   text-align-last: justify;
 }
 
-/* "PRIORIDADE" — large, bold, defines the container width */
+/* "DEMO" — large, bold, defines the container width */
 .logo__name {
   font-family:    var(--font-family-sans);
   font-size:      var(--font-size-h4);

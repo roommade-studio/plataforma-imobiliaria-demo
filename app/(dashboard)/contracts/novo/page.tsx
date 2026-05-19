@@ -25,7 +25,7 @@ const STEPS = [
 
 /* ─── Step 1 mock options ────────────────────────────────── */
 
-const UNIDADES = ['RE/MAX Noble', 'RE/MAX Elite', 'RE/MAX Master', 'RE/MAX Premium']
+const UNIDADES = ['Filial Centro', 'Filial Norte', 'Filial Sul', 'Filial Oeste']
 
 const TIPOS_CONTRATO = [
   'Gestão (Exclusividade/Prioridade)',
@@ -45,7 +45,7 @@ const NEGOCIACOES = [
 ]
 
 const CORRETORES = [
-  'Gabriel Avila',
+  'Carlos Silva',
   'Lucas Martins',
   'Ana Paula',
   'Fernanda Costa',
@@ -386,9 +386,9 @@ const PCT_OPCOES = ['2', '3', '4', '5', '6', '8', '10', '12', '15', '20', 'Outro
 
 const TIPOS_VENDA = [
   'Venda Direta (sem parceria)',
-  'Parceria Interna (entre corretores RE/MAX)',
+  'Parceria Interna (entre corretores da rede)',
   'Parceria Externa (com outra imobiliária)',
-  'Parceria Mista (RE/MAX + imobiliária externa)',
+  'Parceria Mista (rede + imobiliária externa)',
 ]
 
 const MOMENTOS_COM = [
@@ -401,7 +401,7 @@ const MOMENTOS_COM = [
   'Outro (especificar)',
 ]
 
-const REMAX_PCT  = 55
+const IMOB_PCT  = 55
 const COR_PCT    = 45
 
 /* ─── Step 7 types ───────────────────────────────────────── */
@@ -443,7 +443,7 @@ function createCorretagem(): CorretagemData {
     tipoVenda:          'Venda Direta (sem parceria)',
     momentos:           [createMomentoComissao()],
     incluirQuitacao:    false,
-    nomeCorretor:       'Gabriel Avila',
+    nomeCorretor:       'Carlos Silva',
     creci:              '',
     banco:              '',
     chavePix:           '',
@@ -705,7 +705,7 @@ function Step1({ data, onChange }: {
     <div className={styles.form}>
       <div className={styles.form__row}>
         <Select
-          label="Unidade RE/MAX"
+          label="Unidade"
           required
           value={data.unidade}
           onChange={e => onChange({ unidade: e.target.value })}
@@ -2226,7 +2226,7 @@ function Step7({
     ? (parseFloat(data.valorManual) || 0)
     : (pctNum / 100) * valorBase
 
-  const remaxVal     = commissionValue * REMAX_PCT / 100
+  const imobVal      = commissionValue * IMOB_PCT / 100
   const corretorVal  = commissionValue * COR_PCT / 100
   const totalMomentos = data.momentos.reduce((s, m) => s + (parseFloat(m.valor) || 0), 0)
   const semValorVenda = valorBase === 0
@@ -2248,7 +2248,7 @@ function Step7({
       {/* ── Modelo de comissão ── */}
       <div className={styles.cor__model__banner}>
         <span className={styles.cor__badge}>Corretor (45/55)</span>
-        <span className={styles.cor__model__text}>Corretor 45% / RE/MAX 55%</span>
+        <span className={styles.cor__model__text}>Corretor 45% / Imobiliária 55%</span>
       </div>
 
       {/* ── Alerta: sem valor de venda ── */}
@@ -2363,9 +2363,9 @@ function Step7({
         <div className={styles.vsect}>
           <div className={styles.cor__split}>
             <div className={styles.cor__split__card}>
-              <span className={styles.cor__split__label}>RE/MAX</span>
-              <span className={styles.cor__split__pct}>{REMAX_PCT}.0%</span>
-              <span className={styles.cor__split__val}>{fmtBRL(remaxVal.toFixed(2))}</span>
+              <span className={styles.cor__split__label}>Imobiliária</span>
+              <span className={styles.cor__split__pct}>{IMOB_PCT}.0%</span>
+              <span className={styles.cor__split__val}>{fmtBRL(imobVal.toFixed(2))}</span>
             </div>
             <div className={styles.cor__split__card}>
               <span className={styles.cor__split__label}>Corretor</span>
@@ -3190,7 +3190,7 @@ export default function NovoContratoPage() {
     unidade:      '',
     tipoContrato: '',
     negociacao:   '',
-    corretor:     'Gabriel Avila',
+    corretor:     'Carlos Silva',
   })
 
   const [vendors, setVendors] = useState<VendedorData[]>([createVendor()])

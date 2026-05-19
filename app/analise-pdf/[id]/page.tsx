@@ -75,7 +75,7 @@ function PdfContent({ analise }: { analise: AnaliseMercado }) {
         </div>
 
         <div className={styles.cover__footer}>
-          <span>Sistema Prioridade · Análise de Mercado Imobiliário</span>
+          <span>Sistema Demo · Análise de Mercado Imobiliário</span>
         </div>
       </div>
 
@@ -242,7 +242,7 @@ function PdfContent({ analise }: { analise: AnaliseMercado }) {
 
       {/* ── PDF footer ── */}
       <div className={styles.pdf__footer}>
-        <span>Sistema Prioridade · Análise de Mercado #{analise.id} · {todayStr}</span>
+        <span>Sistema Demo · Análise de Mercado #{analise.id} · {todayStr}</span>
         <span>Este documento é de uso interno e confidencial.</span>
       </div>
 

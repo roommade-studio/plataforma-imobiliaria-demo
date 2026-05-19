@@ -10,7 +10,7 @@ export default function Logo({ className, variant = 'light' }: LogoProps) {
   return (
     <div className={cn(styles.logo, variant === 'dark' && styles['logo--dark'], className)}>
       <span className={styles.logo__label}>Sistema</span>
-      <span className={styles.logo__name}>Prioridade</span>
+      <span className={styles.logo__name}>Demo</span>
     </div>
   )
 }
