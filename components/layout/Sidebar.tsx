@@ -231,7 +231,7 @@ export default function Sidebar({ userName, userEmail: _userEmail, role, onLogou
     >
       {/* Logo */}
       <div className={styles.sidebar__logo}>
-        <Logo className={styles['sidebar__logo-text']} />
+        <Logo variant="dark" className={styles['sidebar__logo-text']} />
       </div>
 
       {/* Navigation */}

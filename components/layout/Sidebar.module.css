@@ -123,6 +123,7 @@
 
 .sidebar__item--active:hover {
   background-color: var(--sidebar-item-active);
+  color:            var(--sidebar-text-active);
 }
 
 .sidebar__item-icon {
